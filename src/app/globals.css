@@ -1,0 +1,5 @@
+/* Minimal globals.css to let style.css control layout and typography */
+body {
+  overflow-x: hidden;
+  background-color: #fffbf7;
+}
