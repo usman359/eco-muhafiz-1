@@ -4512,10 +4512,13 @@ p, span, li, a, address, small, strong {
   margin-bottom: 30px !important;
   box-shadow: 0 4px 20px rgba(15, 44, 32, 0.02) !important;
 }
-.row > div:hover .industries-card,
+.row > div:hover .industries-card {
+  transform: translateY(-6px) !important;
+  border-color: rgba(16, 134, 88, 0.25) !important;
+  box-shadow: 0 15px 35px rgba(15, 44, 32, 0.06) !important;
+}
 .row > div:hover .exhibition-box,
 .row > div:hover .event-box {
-  transform: translateY(-6px) !important;
   border-color: rgba(16, 134, 88, 0.25) !important;
   box-shadow: 0 15px 35px rgba(15, 44, 32, 0.06) !important;
 }
@@ -4931,9 +4934,15 @@ p, span, li, a, address, small, strong {
 }
 .page-header p {
   color: rgba(255, 255, 255, 0.8) !important;
+  font-family: var(--font-sans) !important;
   font-size: 17px !important;
   line-height: 1.5 !important;
-  margin: 0 !important;
+  margin: 0 auto !important;
+  border-left: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 600px !important;
+  text-align: center !important;
 }
 
 /* Odometer count text font */

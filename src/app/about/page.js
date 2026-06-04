@@ -26,13 +26,13 @@ export default function About() {
                 <figure><img src="/images/eco-f.png" alt="Eco Muhafiz logo" /></figure>
                 <h6>Guardian of Margalla Hills</h6>
                 <h2>Our Mission & Purpose</h2>
+                <p>
+                  Eco Muhafiz is Pakistan’s pioneer AI-powered Climate Intelligence Platform. Our goal is to counter rapid environmental degradation and lack of transparency in conservation efforts. Through cutting-edge audio detection device nets and remote sensing, we provide immediate alerts and auditable validation.
+                </p>
+                <p>
+                  By combining technology with a community-first approach, we empower local wildlife management, forestry rangers, and corporate ESG programs. Our solutions translate ambient wilderness signals into actionable analytics, ensuring compliance and halting illicit deforestation.
+                </p>
               </div>
-              <p>
-                Eco Muhafiz is Pakistan’s pioneer AI-powered Climate Intelligence Platform. Our goal is to counter rapid environmental degradation and lack of transparency in conservation efforts. Through cutting-edge audio detection device nets and remote sensing, we provide immediate alerts and auditable validation.
-              </p>
-              <p>
-                By combining technology with a community-first approach, we empower local wildlife management, forestry rangers, and corporate ESG programs. Our solutions translate ambient wilderness signals into actionable analytics, ensuring compliance and halting illicit deforestation.
-              </p>
             </div>
             <div className="col-lg-6">
               <figure className="image-box" data-scroll data-scroll-speed="0.5">
