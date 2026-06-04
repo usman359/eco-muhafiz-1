@@ -333,7 +333,7 @@ export default function Home() {
           </div>
           <div className="row justify-content-center">
             <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
-              <div className="testimonial-box" style={{ background: '#ffffff', border: '1px solid rgba(15,44,32,0.06)', padding: '40px', borderRadius: '20px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div className="testimonial-box" style={{ background: '#ffffff', border: '1px solid rgba(15,44,32,0.06)', padding: '40px', borderRadius: '20px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', maxWidth: '100%' }}>
                 <p style={{ fontSize: '15px', lineHeight: 1.6, color: 'rgba(30,43,37,0.8)', marginBottom: '25px' }}>
                   &quot;Every 19 minutes, Pakistan loses a hectare of forest. We built Eco Muhafiz because silence is not an option when ecosystems are collapsing in real time. We are building the system that measures, monitors, and protects them.&quot;
                 </p>
@@ -343,7 +343,7 @@ export default function Home() {
               </div>
             </div>
             <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
-              <div className="testimonial-box" style={{ background: '#ffffff', border: '1px solid rgba(15,44,32,0.06)', padding: '40px', borderRadius: '20px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div className="testimonial-box" style={{ background: '#ffffff', border: '1px solid rgba(15,44,32,0.06)', padding: '40px', borderRadius: '20px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', maxWidth: '100%' }}>
                 <p style={{ fontSize: '15px', lineHeight: 1.6, color: 'rgba(30,43,37,0.8)', marginBottom: '25px' }}>
                   &quot;By transforming forest sounds into actionable intelligence, we help protect ecosystems, detect threats, and preserve biodiversity. Our vision is simple: a world where technology works in harmony with nature.&quot;
                 </p>
@@ -353,7 +353,7 @@ export default function Home() {
               </div>
             </div>
             <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
-              <div className="testimonial-box" style={{ background: '#ffffff', border: '1px solid rgba(15,44,32,0.06)', padding: '40px', borderRadius: '20px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div className="testimonial-box" style={{ background: '#ffffff', border: '1px solid rgba(15,44,32,0.06)', padding: '40px', borderRadius: '20px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', maxWidth: '100%' }}>
                 <p style={{ fontSize: '15px', lineHeight: 1.6, color: 'rgba(30,43,37,0.8)', marginBottom: '25px' }}>
                   &quot;As Co-Founder of Eco Muhafiz, I’m committed to empowering communities through environmental awareness, sustainable action, and collective responsibility for a greener future.&quot;
                 </p>

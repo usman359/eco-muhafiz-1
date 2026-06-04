@@ -185,7 +185,7 @@ export default function MainLayout({ children }) {
         </svg>
         <div className="logo">
           <Link href="/" onClick={(e) => navigateWithTransition(e, '/')}>
-            <img src="/images/eco-f.png" alt="Eco Muhafiz logo" />
+            ECO·MUHAFIZ
           </Link>
         </div>
         <div className="inner">
@@ -231,7 +231,7 @@ export default function MainLayout({ children }) {
           <nav className="navbar light">
             <div className="logo">
               <Link href="/" onClick={(e) => navigateWithTransition(e, '/')}>
-                ECO·MUHAFIZ
+                <img src="/images/eco-f.png" alt="Eco Muhafiz logo" />
               </Link>
             </div>
             <div className="site-menu">

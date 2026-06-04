@@ -4296,6 +4296,8 @@ p, span, li, a, address, small, strong {
   top: 0 !important;
   left: 0 !important;
   width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
 }
 .navbar.light {
   background-color: var(--primary-dark) !important;
@@ -4449,6 +4451,12 @@ p, span, li, a, address, small, strong {
   color: rgba(30, 43, 37, 0.85) !important;
   max-width: 680px;
 }
+.text-center .section-title p,
+.text-center.section-title p,
+.section-title.text-center p {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
 
 /* Metrics Bar */
 .metrics-bar {
@@ -4464,8 +4472,17 @@ p, span, li, a, address, small, strong {
   padding: 0 40px !important;
   text-align: left;
 }
-.metric-item:last-child {
-  border-right: none;
+@media (max-width: 767px) {
+  .metric-item {
+    border-right: none !important;
+    border-bottom: 1px solid rgba(15, 44, 32, 0.12);
+    padding: 20px 0 !important;
+    text-align: center;
+  }
+}
+.metrics-bar .row > div:last-child .metric-item {
+  border-right: none !important;
+  border-bottom: none !important;
 }
 .metric-number {
   font-family: var(--font-serif) !important;
@@ -4495,7 +4512,9 @@ p, span, li, a, address, small, strong {
   margin-bottom: 30px !important;
   box-shadow: 0 4px 20px rgba(15, 44, 32, 0.02) !important;
 }
-.industries-card:hover, .exhibition-box:hover, .event-box:hover {
+.row > div:hover .industries-card,
+.row > div:hover .exhibition-box,
+.row > div:hover .event-box {
   transform: translateY(-6px) !important;
   border-color: rgba(16, 134, 88, 0.25) !important;
   box-shadow: 0 15px 35px rgba(15, 44, 32, 0.06) !important;
@@ -4509,9 +4528,12 @@ p, span, li, a, address, small, strong {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
+  opacity: 1 !important;
   transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
 }
-.industries-card:hover figure img, .exhibition-box:hover figure img, .event-box:hover figure img {
+.row > div:hover .industries-card figure img,
+.row > div:hover .exhibition-box figure img,
+.row > div:hover .event-box figure img {
   transform: scale(1.04) !important;
 }
 .industries-card .content-box, .exhibition-box .content-box, .event-box .content-box {
@@ -4879,7 +4901,7 @@ p, span, li, a, address, small, strong {
   background-size: cover !important;
   background-position: center !important;
   position: relative !important;
-  padding: 0 !important;
+  padding: 90px 0 0 0 !important; /* Offset absolute navbar height */
 }
 .page-header::before {
   content: '';
@@ -4895,9 +4917,10 @@ p, span, li, a, address, small, strong {
   position: relative;
   z-index: 2;
   text-align: center;
-  width: 100%;
-  max-width: 800px;
-  padding: 0 20px;
+  width: 100% !important;
+  max-width: 800px !important;
+  padding: 0 20px !important;
+  margin: 0 auto !important;
 }
 .page-header h1 {
   font-family: var(--font-serif) !important;

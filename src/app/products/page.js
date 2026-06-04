@@ -32,7 +32,7 @@ export default function Products() {
       {/* Page Header */}
       <header 
         className="page-header" 
-        style={{ backgroundImage: "url('/images/page-header.jpg')" }}
+        style={{ backgroundImage: "url('/images/placeholder.jpg')" }}
       >
         <div className="inner">
           <h1>Our Products</h1>

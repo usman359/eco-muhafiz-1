@@ -61,7 +61,7 @@ export default function AnimatedCounter({ end, duration = 2000 }) {
   }, [hasStarted, end, duration]);
 
   return (
-    <span ref={elementRef} className="odometer-value">
+    <span ref={elementRef} className="odometer odometer-value">
       {count}
     </span>
   );
