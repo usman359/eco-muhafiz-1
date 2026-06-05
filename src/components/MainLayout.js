@@ -196,13 +196,6 @@ export default function MainLayout({ children }) {
               Designed to protect biodiversity and empower forest rangers, it ensures <u>sustainable forest monitoring</u> at scale.
             </p>
           </div>
-          <div className="widget">
-            <h6 className="widget-title">Field Operation Hours</h6>
-            <p>
-              Monday ‒ Friday: 08:00 ‒ 18:00<br />
-              Weekend Monitoring: 09:00 ‒ 16:00
-            </p>
-          </div>
         </div>
         <div className="display-mobile">
           <div className="site-menu">
