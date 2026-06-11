@@ -224,7 +224,7 @@ export default function MainLayout({ children }) {
           <nav className="navbar light">
             <div className="logo">
               <Link href="/" onClick={(e) => navigateWithTransition(e, '/')}>
-                <img src="/images/eco-f.png" alt="Eco Muhafiz logo" />
+                <img src="/logo.png" alt="Eco Muhafiz logo" />
               </Link>
             </div>
             <div className="site-menu">
@@ -286,18 +286,13 @@ export default function MainLayout({ children }) {
                   <h6 className="widget-title">Connect With Us</h6>
                   <ul className="social-media" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
                     <li style={{ marginBottom: '12px' }}>
-                      <a href="#" onClick={(e) => e.preventDefault()}>
-                        <i className="fab fa-facebook-f" style={{ marginRight: '8px' }}></i> /eco.muhafiz
+                      <a href="https://www.instagram.com/eco.muhafizz?igsh=eDE3amd3ZzRtc2Fy" target="_blank" rel="noopener noreferrer">
+                        <i className="fab fa-instagram" style={{ marginRight: '8px' }}></i> Instagram
                       </a>
                     </li>
                     <li style={{ marginBottom: '12px' }}>
-                      <a href="#" onClick={(e) => e.preventDefault()}>
-                        <i className="fab fa-twitter" style={{ marginRight: '8px' }}></i> /eco_muhafiz
-                      </a>
-                    </li>
-                    <li style={{ marginBottom: '12px' }}>
-                      <a href="#" onClick={(e) => e.preventDefault()}>
-                        <i className="fab fa-youtube" style={{ marginRight: '8px' }}></i> /ecoMuhafizOfficial
+                      <a href="https://www.linkedin.com/company/ecomuhafiz/" target="_blank" rel="noopener noreferrer">
+                        <i className="fab fa-linkedin-in" style={{ marginRight: '8px' }}></i> LinkedIn
                       </a>
                     </li>
                   </ul>
@@ -306,8 +301,7 @@ export default function MainLayout({ children }) {
                   <h6 className="widget-title">Get in Touch</h6>
                   <address className="address" style={{ lineHeight: 1.8, color: 'rgba(255, 255, 255, 0.7)', fontStyle: 'normal' }}>
                     NSTP, NUST Campus,<br />
-                    H-12 Sector, Islamabad, Pakistan<br />
-                    <strong>Phone:</strong> +92 (300) 000 0000
+                    H-12 Sector, Islamabad, Pakistan
                   </address>
                 </div>
               </div>

@@ -68,10 +68,7 @@ export default function Contact() {
                 <p>NSTP, NUST Campus,<br />H-12 Sector, Islamabad, Pakistan</p>
               </div>
 
-              <div className="contact-box">
-                <h6>Phone Number</h6>
-                <p><a href="tel:+923000000000">+92 (300) 000 0000</a></p>
-              </div>
+
 
               <div className="contact-box">
                 <h6>Email Address</h6>
