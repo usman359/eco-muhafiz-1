@@ -19,6 +19,9 @@ export const metadata = {
   description: 'Pakistan’s first AI-powered Climate Intelligence Platform. We combine on-ground bioacoustic IoT sensors with satellite telemetry for real-time forest monitoring and auditable ESG compliance.',
   keywords: 'Eco, Plantation, Drive, Forest, Margalla Hills, AI, Bioacoustics',
   author: 'Eco Muhafiz',
+  icons: {
+    icon: '/logo.png?v=1',
+  },
 };
 
 export default function RootLayout({ children }) {
