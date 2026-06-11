@@ -5481,3 +5481,86 @@ button[type="submit"]:hover {
     transform: translateX(-50%);
   }
 }
+
+/* Listening Device Ripple Animations */
+.listening-device-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(15, 44, 32, 0.1);
+}
+
+.listening-device-wrapper img {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Pulse rings for soundwave/sonar simulation centered on the device */
+.pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Double concentric white circles matching the shared image */
+.ring-1 {
+  width: 180px;
+  height: 180px;
+  border: 3.5px solid rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+.ring-2 {
+  width: 140px;
+  height: 140px;
+  border: 1.5px solid rgba(255, 255, 255, 0.75) !important;
+}
+
+/* Pulse rings animation runs only when device wrapper has the listening class (audio is active) */
+.listening-device-wrapper.listening .ring-1 {
+  animation: sonarPulse1 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.listening-device-wrapper.listening .ring-2 {
+  animation: sonarPulse2 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes sonarPulse1 {
+  0% {
+    transform: translate(-50%, -50%) scale(0.85);
+    opacity: 0.9;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.35);
+    opacity: 0;
+  }
+}
+
+@keyframes sonarPulse2 {
+  0% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.95;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.25);
+    opacity: 0;
+  }
+}

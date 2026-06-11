@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import SatelliteSlider from "../components/SatelliteSlider";
 
@@ -12,25 +12,26 @@ export default function Home() {
       icon: "fa-feather-alt",
       title: "Primary biodiversity insights",
       desc: "Collect raw bioacoustic signatures of birds, mammals, and insects to establish a biological baseline index for environmental compliance reporting.",
-      img: "/images/muhafiz_biot_device.png",
+      img: "/images/solution/WhatsApp Image 2026-06-11 at 20.08.24.jpeg",
     },
     {
       icon: "fa-desktop",
       title: "Real-time, on-ground monitoring",
       desc: "Continuous audio streams analyzed at the edge to alert wardens immediately upon gunshot, chainsaw, or vehicle detection in remote regions.",
-      img: "/images/vertical-shot-lonely-tree-with-cut-branches-growing-forest-gloomy-day.jpg",
+      img: "/images/solution/WhatsApp Image 2026-06-11 at 20.08.25.jpeg",
     },
     {
       icon: "fa-shield-alt",
       title: "AI species detection",
       desc: "Recognize key indicator species in real-time, mapping migration patterns and population changes to measure reforestation project success.",
-      img: "/images/Eco Asset -1.png",
+      img: "/images/solution/WhatsApp Image 2026-06-11 at 20.08.26.jpeg",
     },
   ];
 
   // 2. Audio Equalizer Stream State
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [barHeights, setBarHeights] = useState(Array(24).fill(4));
+  const audioRef = useRef(null);
 
   useEffect(() => {
     if (!isAudioPlaying) {
@@ -48,7 +49,19 @@ export default function Home() {
   }, [isAudioPlaying]);
 
   const toggleAudioVisualizer = () => {
-    setIsAudioPlaying(!isAudioPlaying);
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isAudioPlaying) {
+      audio.pause();
+      setIsAudioPlaying(false);
+    } else {
+      audio.play().then(() => {
+        setIsAudioPlaying(true);
+      }).catch(err => {
+        console.error("Audio playback failed:", err);
+      });
+    }
   };
 
   return (
@@ -302,6 +315,39 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Video Demonstration Section */}
+      <section className="content-section" style={{ backgroundColor: "var(--cream-bg)" }}>
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-lg-8 text-center section-title mb-5">
+              <h6>Demo Video</h6>
+              <h2>See Eco Muhafiz in Action</h2>
+              <p>
+                Watch our dedicated AI-powered forest guard platform monitor ecosystem sounds, detect threats, and empower conservation rangers in real time.
+              </p>
+            </div>
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-lg-10">
+              <div className="video-player-container" style={{
+                borderRadius: "24px",
+                overflow: "hidden",
+                boxShadow: "0 20px 50px rgba(15, 44, 32, 0.15)",
+                border: "1px solid rgba(15, 44, 32, 0.08)",
+                background: "#000"
+              }}>
+                <video
+                  src="/videos/final-2.mp4"
+                  controls
+                  preload="metadata"
+                  style={{ width: "100%", display: "block" }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Live Stream / Bioacoustic Stream Section */}
       <section className="content-section dark-section">
         <div className="container">
@@ -320,6 +366,7 @@ export default function Home() {
                   className={`audio-visualizer-card ${isAudioPlaying ? "playing" : ""}`}
                   id="visualizerCard"
                 >
+                  <audio ref={audioRef} src="/audios/birds-singing.mp3" loop />
                   <button
                     className="audio-play-btn"
                     id="playBtn"
@@ -365,8 +412,16 @@ export default function Home() {
               </div>
             </div>
             <div className="col-lg-6">
-              <div className="solution-image-container">
-                <img src="/images/IOT.png" alt="Acoustic Sensors Deployed" />
+              <div className="solution-image-container d-flex justify-content-center align-items-center">
+                <div className={`listening-device-wrapper ${isAudioPlaying ? "listening" : ""}`}>
+                  <div className="pulse-ring ring-1"></div>
+                  <div className="pulse-ring ring-2"></div>
+                  <img
+                    src="/images/solution/WhatsApp Image 2026-06-11 at 20.08.24.jpeg"
+                    alt="Eco Muhafiz Live Stream Audio Device"
+                    className="device-img"
+                  />
+                </div>
               </div>
             </div>
           </div>
