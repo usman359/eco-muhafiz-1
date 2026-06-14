@@ -49,7 +49,7 @@ export default function Contact() {
       {/* Page Header */}
       <header 
         className="page-header" 
-        style={{ backgroundImage: "url('/images/placeholder.jpg')" }}
+        style={{ backgroundImage: "url('/images/view-land-plot-real-estate-business-development-min.jpg')" }}
       >
         <div className="inner">
           <h1>Contact Us</h1>

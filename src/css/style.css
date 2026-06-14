@@ -665,6 +665,24 @@ button[type="submit"] i {
   opacity: 0.7;
 }
 
+/* SIDE WIDGET BACKDROP */
+.side-widget-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+.side-widget-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
 /* SIDE WIDGET */
 .side-widget {
   width: 540px;
@@ -797,7 +815,7 @@ button[type="submit"] i {
 }
 .side-widget .display-mobile {
   width: 100%;
-  height: 100%;
+  height: auto;
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -842,6 +860,11 @@ button[type="submit"] i {
 .side-widget .display-mobile .site-menu ul {
   width: 100%;
   margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.side-widget .display-mobile .site-menu ul li {
+  list-style: none;
 }
 .side-widget .display-mobile .site-menu ul li {
   width: 100%;
@@ -1659,8 +1682,8 @@ button[type="submit"] i {
 }
 .image-box img {
   width: 100%;
-  opacity: 0;
-  transform: scale(1.2);
+  opacity: 1;
+  transform: scale(1);
   transition-duration: 0.7s;
   -webkit-transition-duration: 0.7s;
   transition-timing-function: cubic-bezier(0.86, 0, 0.09, 1);
@@ -1982,18 +2005,20 @@ button[type="submit"] i {
   background: #94ffc4;
   border-radius: 50%;
   position: absolute;
-  right: -50px;
-  top: -20px;
+  right: -15px;
+  top: 15px;
   z-index: -1;
 }
 .counter-box .value {
-  font-size: 82px;
+  font-size: 36px;
   font-family: "Cinzel", serif;
   display: inline-block;
   line-height: 1;
-  margin-left: 10px;
+  margin-left: 5px;
   position: relative;
   z-index: 1;
+  vertical-align: top;
+  top: 12px;
 }
 .counter-box p {
   width: 100%;
@@ -2020,7 +2045,8 @@ button[type="submit"] i {
 .image-content-box {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100%;
   position: relative;
 }
 .image-content-box.is-inview figure img {
@@ -2029,14 +2055,17 @@ button[type="submit"] i {
 }
 .image-content-box figure {
   width: 100%;
+  height: 300px;
   display: block;
   margin: 0;
   overflow: hidden;
 }
 .image-content-box figure img {
   width: 100%;
-  opacity: 0;
-  transform: scale(1.2);
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  transform: scale(1);
   transition-duration: 0.7s;
   -webkit-transition-duration: 0.7s;
   transition-timing-function: cubic-bezier(0.86, 0, 0.09, 1);
@@ -2045,7 +2074,8 @@ button[type="submit"] i {
 .image-content-box .content-box {
   width: calc(100% - 30px);
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  flex-grow: 1;
   position: relative;
   background: #fff;
   margin-top: -30px;
@@ -2064,6 +2094,7 @@ button[type="submit"] i {
   display: block;
   margin: 0;
   opacity: 0.7;
+  flex-grow: 1;
 }
 
 /* TESTIMONIAL BOX */
@@ -2193,7 +2224,8 @@ button[type="submit"] i {
 .exhibition-box {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100%;
 }
 .exhibition-box.is-inview .img {
   opacity: 1;
@@ -2270,8 +2302,8 @@ button[type="submit"] i {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0;
-  transform: scale(1.2);
+  opacity: 1;
+  transform: scale(1);
   transition-duration: 0.7s;
   -webkit-transition-duration: 0.7s;
   transition-timing-function: cubic-bezier(0.86, 0, 0.09, 1);
@@ -2280,7 +2312,8 @@ button[type="submit"] i {
 .exhibition-box .content-box {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  flex-grow: 1;
   text-align: center;
 }
 .exhibition-box .content-box h4 {
@@ -2316,6 +2349,7 @@ button[type="submit"] i {
   width: 100%;
   display: block;
   margin: 0;
+  flex-grow: 1;
 }
 
 /* TEXT BOX */
@@ -3416,7 +3450,7 @@ button[type="submit"] i {
 
   .side-widget.active .display-mobile {
     display: flex;
-    margin-top: -50px;
+    margin-top: 20px;
   }
 
   .side-widget.active .inner {
@@ -3615,8 +3649,8 @@ button[type="submit"] i {
   }
 
   .side-widget {
-    padding: 30px;
-    padding-right: 0;
+    padding: 40px 30px;
+    padding-right: 40px;
     width: 100%;
     max-width: 85vw;
   }

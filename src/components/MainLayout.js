@@ -200,6 +200,12 @@ export default function MainLayout({ children }) {
         </div>
       </div>
 
+      {/* Sidebar Backdrop Overlay */}
+      <div
+        className={`side-widget-backdrop ${menuActive ? "active" : ""}`}
+        onClick={() => setMenuActive(false)}
+      />
+
       {/* 4. Side Widget Mobile Menu */}
       <aside className={`side-widget ${menuActive ? "active" : ""}`}>
         <svg viewBox="0 0 600 1080" preserveAspectRatio="none" version="1.1">

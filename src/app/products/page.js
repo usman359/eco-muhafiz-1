@@ -32,7 +32,7 @@ export default function Products() {
       {/* Page Header */}
       <header 
         className="page-header" 
-        style={{ backgroundImage: "url('/images/placeholder.jpg')" }}
+        style={{ backgroundImage: "url('/images/view-land-plot-real-estate-business-development-min.jpg')" }}
       >
         <div className="inner">
           <h1>Our Products</h1>
@@ -56,11 +56,7 @@ export default function Products() {
           <div className="row">
             {products.map((product, idx) => (
               <div key={idx} className="col-lg-4 col-md-6">
-                <div 
-                  className="exhibition-box" 
-                  data-scroll 
-                  data-scroll-speed={product.scrollSpeed}
-                >
+                <div className="exhibition-box">
                   <figure>
                     <a href="#" onClick={(e) => e.preventDefault()}>
                       <img 

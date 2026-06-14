@@ -9,7 +9,7 @@ export default function About() {
       {/* Page Header */}
       <header 
         className="page-header" 
-        style={{ backgroundImage: "url('/images/placeholder.jpg')" }}
+        style={{ backgroundImage: "url('/images/view-land-plot-real-estate-business-development-min.jpg')" }}
       >
         <div className="inner">
           <h1>About Us</h1>
@@ -35,7 +35,7 @@ export default function About() {
               </div>
             </div>
             <div className="col-lg-6">
-              <figure className="image-box" data-scroll data-scroll-speed="0.5">
+              <figure className="image-box">
                 <img src="/images/Eco Asset -1.png" alt="Eco Muhafiz device in Margalla Hills" />
               </figure>
             </div>
@@ -50,7 +50,7 @@ export default function About() {
             <div className="col-lg-4">
               <div className="image-content-box">
                 <figure>
-                  <img src="/images/about-image01.jpg" alt="Acoustic Intelligence" />
+                  <img src="/images/acoustic_nets.png" alt="Acoustic Intelligence" />
                 </figure>
                 <div className="content-box">
                   <h3>Acoustic Nets</h3>
@@ -61,7 +61,7 @@ export default function About() {
             <div className="col-lg-4">
               <div className="image-content-box">
                 <figure>
-                  <img src="/images/about-image02.jpg" alt="Remote Sensing" />
+                  <img src="/images/satellite_verification.png" alt="Remote Sensing" />
                 </figure>
                 <div className="content-box">
                   <h3>Satellite Verification</h3>
@@ -72,7 +72,7 @@ export default function About() {
             <div className="col-lg-4">
               <div className="image-content-box">
                 <figure>
-                  <img src="/images/about-image03.jpg" alt="Ranger Ecosystem" />
+                  <img src="/images/ranger_response.png" alt="Ranger Ecosystem" />
                 </figure>
                 <div className="content-box">
                   <h3>Ranger Response</h3>

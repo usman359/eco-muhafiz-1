@@ -56,11 +56,14 @@ export default function Home() {
       audio.pause();
       setIsAudioPlaying(false);
     } else {
-      audio.play().then(() => {
-        setIsAudioPlaying(true);
-      }).catch(err => {
-        console.error("Audio playback failed:", err);
-      });
+      audio
+        .play()
+        .then(() => {
+          setIsAudioPlaying(true);
+        })
+        .catch((err) => {
+          console.error("Audio playback failed:", err);
+        });
     }
   };
 
@@ -98,8 +101,9 @@ export default function Home() {
           <div className="row">
             <div className="col-lg-9 col-md-12">
               <h1>
-                Where the forest speaks —<br />
-                <span>and AI protects</span>
+                Where the forest speaks and
+                <br />
+                <span>AI protects</span>
               </h1>
               <p>
                 Pakistan’s first AI-powered Climate Intelligence Platform. We
@@ -160,7 +164,11 @@ export default function Home() {
               <h6>Industries We Serve</h6>
               <h2>Turning Environmental Intelligence into Action</h2>
               <p>
-                From forest protection and biodiversity conservation to carbon accountability and ESG compliance, Eco Muhafiz transforms environmental data into actionable intelligence for governments, conservation agencies, climate projects, and sustainability-driven enterprises.
+                From forest protection and biodiversity conservation to carbon
+                accountability and ESG compliance, Eco Muhafiz transforms
+                environmental data into actionable intelligence for governments,
+                conservation agencies, climate projects, and
+                sustainability-driven enterprises.
               </p>
             </div>
           </div>
@@ -180,7 +188,12 @@ export default function Home() {
                     </a>
                   </h4>
                   <p>
-                    Deploying AI-powered monitoring networks to detect illegal logging, chainsaw activity, gunshots, vehicle intrusion, and wildfire risks in real time. Eco Muhafiz equips forest rangers and conservation authorities with instant alerts and location intelligence to strengthen forest protection and enforcement.
+                    Deploying AI-powered monitoring networks to detect illegal
+                    logging, chainsaw activity, gunshots, vehicle intrusion, and
+                    wildfire risks in real time. Eco Muhafiz equips forest
+                    rangers and conservation authorities with instant alerts and
+                    location intelligence to strengthen forest protection and
+                    enforcement.
                   </p>
                 </div>
               </div>
@@ -200,7 +213,13 @@ export default function Home() {
                     </a>
                   </h4>
                   <p>
-                    Eco Muhafiz is building Pakistan's first AI-powered Biodiversity Register, creating a continuously updated record of species presence and ecosystem health. Our biodiversity intelligence platform helps authorities monitor wildlife populations, identify biodiversity hotspots, assess ecosystem changes, and support evidence-based conservation planning.
+                    Eco Muhafiz is building Pakistan's first AI-powered
+                    Biodiversity Register, creating a continuously updated
+                    record of species presence and ecosystem health. Our
+                    biodiversity intelligence platform helps authorities monitor
+                    wildlife populations, identify biodiversity hotspots, assess
+                    ecosystem changes, and support evidence-based conservation
+                    planning.
                   </p>
                 </div>
               </div>
@@ -220,7 +239,13 @@ export default function Home() {
                     </a>
                   </h4>
                   <p>
-                    Supporting afforestation, reforestation, and ecosystem restoration initiatives through independent environmental verification. Eco Muhafiz provides auditable data on tree survival, biodiversity recovery, ecosystem health, and carbon project performance, helping organizations strengthen ESG reporting, carbon credit validation, and sustainability disclosures.
+                    Supporting afforestation, reforestation, and ecosystem
+                    restoration initiatives through independent environmental
+                    verification. Eco Muhafiz provides auditable data on tree
+                    survival, biodiversity recovery, ecosystem health, and
+                    carbon project performance, helping organizations strengthen
+                    ESG reporting, carbon credit validation, and sustainability
+                    disclosures.
                   </p>
                 </div>
               </div>
@@ -316,26 +341,34 @@ export default function Home() {
       </section>
 
       {/* Video Demonstration Section */}
-      <section className="content-section" style={{ backgroundColor: "var(--cream-bg)" }}>
+      <section
+        className="content-section"
+        style={{ backgroundColor: "var(--cream-bg)" }}
+      >
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-8 text-center section-title mb-5">
               <h6>Demo Video</h6>
               <h2>See Eco Muhafiz in Action</h2>
               <p>
-                Watch our dedicated AI-powered forest guard platform monitor ecosystem sounds, detect threats, and empower conservation rangers in real time.
+                Watch our dedicated AI-powered forest guard platform monitor
+                ecosystem sounds, detect threats, and empower conservation
+                rangers in real time.
               </p>
             </div>
           </div>
           <div className="row justify-content-center">
             <div className="col-lg-10">
-              <div className="video-player-container" style={{
-                borderRadius: "24px",
-                overflow: "hidden",
-                boxShadow: "0 20px 50px rgba(15, 44, 32, 0.15)",
-                border: "1px solid rgba(15, 44, 32, 0.08)",
-                background: "#000"
-              }}>
+              <div
+                className="video-player-container"
+                style={{
+                  borderRadius: "24px",
+                  overflow: "hidden",
+                  boxShadow: "0 20px 50px rgba(15, 44, 32, 0.15)",
+                  border: "1px solid rgba(15, 44, 32, 0.08)",
+                  background: "#000",
+                }}
+              >
                 <video
                   src="/videos/final-2.mp4"
                   controls
@@ -413,7 +446,9 @@ export default function Home() {
             </div>
             <div className="col-lg-6">
               <div className="solution-image-container d-flex justify-content-center align-items-center">
-                <div className={`listening-device-wrapper ${isAudioPlaying ? "listening" : ""}`}>
+                <div
+                  className={`listening-device-wrapper ${isAudioPlaying ? "listening" : ""}`}
+                >
                   <div className="pulse-ring ring-1"></div>
                   <div className="pulse-ring ring-2"></div>
                   <img
