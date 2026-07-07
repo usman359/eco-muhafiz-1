@@ -6,6 +6,7 @@ import '../css/bootstrap.min.css';
 import '../css/style.css';
 import './globals.css';
 import MainLayout from '../components/MainLayout';
+import { AppProvider } from '../context/AppContext';
 
 export const viewport = {
   width: 'device-width',
@@ -33,7 +34,9 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Cinzel:wght@400;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
       </head>
       <body>
-        <MainLayout>{children}</MainLayout>
+        <AppProvider>
+          <MainLayout>{children}</MainLayout>
+        </AppProvider>
       </body>
     </html>
   );

@@ -91,14 +91,14 @@ export default function About() {
             <div className="col-lg-3 col-md-6">
               <div className="counter-box">
                 <AnimatedCounter end="98" />
-                <span className="value">%</span>
+                <span className="value">.6%</span>
                 <p>Detection Accuracy</p>
               </div>
             </div>
             <div className="col-lg-3 col-md-6">
               <div className="counter-box">
-                <AnimatedCounter end="1250" />
-                <span className="value"></span>
+                <AnimatedCounter end="12500" />
+                <span className="value">+ ha</span>
                 <p>Hectares Monitored</p>
               </div>
             </div>
