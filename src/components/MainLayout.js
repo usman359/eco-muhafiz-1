@@ -8,6 +8,7 @@ import { useApp } from "../context/AppContext";
 export default function MainLayout({ children }) {
   const pathname = usePathname();
   const router = useRouter();
+  const isAdminRoute = pathname?.startsWith('/admin');
   const [menuActive, setMenuActive] = useState(false);
   const [searchActive, setSearchActive] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -148,6 +149,10 @@ export default function MainLayout({ children }) {
     { name: "Blog", path: "/blog" },
     { name: "Our Team", path: "/team" },
   ];
+
+  if (isAdminRoute) {
+    return <>{children}</>;
+  }
 
   return (
     <>

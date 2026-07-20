@@ -1,0 +1,46 @@
+[
+  {
+    "id": "b1a2c3d4-e5f6-7890-abcd-ef1234567001",
+    "slug": "how-edge-ai-is-stopping-illegal-logging-in-margalla-hills",
+    "title": "How Edge AI is Stopping Illegal Logging in Margalla Hills",
+    "date": "June 28, 2026",
+    "category": "AI & IoT",
+    "img": "/images/Eco Asset -1.png",
+    "readTime": "5 min read",
+    "author": "Anosha Zia",
+    "desc": "Discover how edge-computed bioacoustic devices detect the acoustic frequency of chainsaws in real-time, sending immediate alerts to wildlife managers and forest guards."
+  },
+  {
+    "id": "b1a2c3d4-e5f6-7890-abcd-ef1234567002",
+    "slug": "copernicus-sentinel-2-a-new-era-of-canopy-monitoring",
+    "title": "Copernicus & Sentinel-2: A New Era of Canopy Monitoring",
+    "date": "May 14, 2026",
+    "category": "Satellite Telemetry",
+    "img": "/images/view-land-plot-real-estate-business-development-min.jpg",
+    "readTime": "7 min read",
+    "author": "Aniqa Gulraiz",
+    "desc": "An exploration of how high-resolution remote sensing imagery lets developers, project managers, and regulatory compliance agencies audit reforestation growth indices."
+  },
+  {
+    "id": "b1a2c3d4-e5f6-7890-abcd-ef1234567003",
+    "slug": "the-silent-sentinel-protecting-wildlife-from-poachers",
+    "title": "The Silent Sentinel: Protecting Wildlife from Poachers",
+    "date": "April 02, 2026",
+    "category": "Conservation",
+    "img": "/images/IOT.png",
+    "readTime": "6 min read",
+    "author": "Aqsa Sarfraz",
+    "desc": "Spotlighting poacher tracking inside national parks. Our bioacoustic nets intercept vehicle engine patterns and gunshot frequencies, dispatching telemetry coordinates."
+  },
+  {
+    "id": "b1a2c3d4-e5f6-7890-abcd-ef1234567004",
+    "slug": "empowering-local-communities-the-role-of-muhafiz-rangers",
+    "title": "Empowering Local Communities: The Role of Muhafiz Rangers",
+    "date": "March 18, 2026",
+    "category": "Community",
+    "img": "/images/ranger_response.png",
+    "readTime": "4 min read",
+    "author": "Team Eco Muhafiz",
+    "desc": "How on-ground wildlife warden mobile interfaces connect local volunteers with AI detection nets, creating a community-led biosphere monitoring structure."
+  }
+]
