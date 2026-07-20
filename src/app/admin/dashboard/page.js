@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function AdminDashboard() {
   const [blogs, setBlogs] = useState([]);
@@ -38,18 +39,18 @@ export default function AdminDashboard() {
       </div>
 
       <div className="admin-card" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-        <Link href="/admin/blogs/new" className="admin-btn admin-btn-primary">
-          New blog post
-        </Link>
-        <Link href="/admin/case-studies/new" className="admin-btn admin-btn-primary">
-          New case study
-        </Link>
-        <Link href="/admin/blogs" className="admin-btn admin-btn-secondary">
-          Manage blogs
-        </Link>
-        <Link href="/admin/case-studies" className="admin-btn admin-btn-secondary">
-          Manage case studies
-        </Link>
+        <Button asChild>
+          <Link href="/admin/blogs/new">New blog post</Link>
+        </Button>
+        <Button asChild>
+          <Link href="/admin/case-studies/new">New case study</Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link href="/admin/blogs">Manage blogs</Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link href="/admin/case-studies">Manage case studies</Link>
+        </Button>
       </div>
     </>
   );

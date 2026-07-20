@@ -72,17 +72,14 @@
 
 .admin-logout {
   margin-top: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: transparent;
-  color: #fff;
-  padding: 10px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
+  width: 100%;
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  background: transparent !important;
+  color: #fff !important;
 }
 
 .admin-logout:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.08) !important;
 }
 
 .admin-main {
@@ -242,12 +239,232 @@
   max-width: 720px;
 }
 
-.admin-field label {
-  display: block;
+.admin-form-note {
+  margin: 0;
+  padding: 12px 14px;
+  background: #f0fdf7;
+  border: 1px solid #c6f0dc;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #335;
+  line-height: 1.5;
+}
+
+.admin-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.admin-label-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 20px;
+}
+
+.admin-label-row label,
+.admin-label-row .ui-label {
+  display: inline;
+  margin: 0;
   font-size: 13px;
   font-weight: 600;
-  margin-bottom: 6px;
   color: #334;
+  line-height: 1.3;
+}
+
+.admin-field-hint {
+  margin: 0;
+  font-size: 12px;
+  color: #778;
+  line-height: 1.4;
+}
+
+.admin-field-error {
+  display: block;
+  margin: 0;
+  font-size: 12px;
+  color: #dc2626;
+}
+
+.admin-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.admin-form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+  align-items: center;
+}
+
+.admin-error {
+  background: #fee2e2;
+  color: #b91c1c;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.admin-empty {
+  color: #667;
+  font-size: 14px;
+  padding: 24px 0;
+}
+
+.admin-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-metric-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.admin-metric-row .ui-btn {
+  height: 40px;
+}
+
+.admin-select {
+  position: relative;
+  width: 100%;
+}
+
+.admin-select-trigger {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 40px !important;
+  min-height: 40px !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 12px !important;
+  border: 1px solid #e2e8e6 !important;
+  border-radius: 8px !important;
+  background: #fff !important;
+  color: #0f2c20 !important;
+  font-size: 14px !important;
+  font-family: inherit !important;
+  line-height: 1.4 !important;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.admin-select-trigger.placeholder {
+  color: #94a3b8 !important;
+}
+
+.admin-select-trigger:hover:not(:disabled) {
+  border-color: #cbd5d1 !important;
+}
+
+.admin-select-trigger.open,
+.admin-select-trigger:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
+  outline: none;
+}
+
+.admin-select-trigger.invalid {
+  border-color: #fca5a5 !important;
+}
+
+.admin-select-trigger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.admin-select-chevron {
+  flex-shrink: 0;
+  color: #64748b;
+  transition: transform 0.15s;
+}
+
+.admin-select-trigger.open .admin-select-chevron {
+  transform: rotate(180deg);
+}
+
+.admin-select-menu {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #e2e8e6;
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(15, 44, 32, 0.12);
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.admin-select-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  color: #0f2c20;
+  text-align: left;
+  padding: 9px 10px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.admin-select-option:hover {
+  background: #f4f7f5;
+}
+
+.admin-select-option.active {
+  background: #ecfdf5;
+  color: #047857;
+  font-weight: 600;
+}
+
+.admin-input.invalid,
+.admin-textarea.invalid,
+.admin-field .invalid {
+  border-color: #fca5a5 !important;
+}
+
+.admin-textarea {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  min-height: 120px !important;
+  padding: 10px 12px !important;
+  border: 1px solid #e2e8e6 !important;
+  border-radius: 8px !important;
+  font-size: 14px !important;
+  font-family: inherit !important;
+  line-height: 1.5 !important;
+  background: #fff !important;
+  color: #0f2c20 !important;
+  resize: vertical;
+  outline: none;
+}
+
+.admin-textarea:focus {
+  border-color: #10b981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15) !important;
 }
 
 .admin-shell input[type="text"],
@@ -330,71 +547,16 @@
   align-items: center;
 }
 
-.admin-input-wrap .admin-input {
+.admin-input-wrap .ui-input {
   padding-right: 44px !important;
 }
 
-.admin-password-toggle {
+.admin-input-wrap .admin-password-toggle {
   position: absolute;
   right: 4px;
   top: 50%;
   transform: translateY(-50%);
-  width: 36px;
-  height: 36px;
-  border: none;
-  background: transparent;
   color: #64748b;
-  border-radius: 6px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-.admin-password-toggle:hover {
-  color: #0f2c20;
-  background: rgba(15, 44, 32, 0.06);
-}
-
-.admin-field-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.admin-form-actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
-.admin-error {
-  background: #fee2e2;
-  color: #b91c1c;
-  padding: 10px 12px;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.admin-empty {
-  color: #667;
-  font-size: 14px;
-  padding: 24px 0;
-}
-
-.admin-metrics {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.admin-metric-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 10px;
-  align-items: center;
 }
 
 .admin-login-page {

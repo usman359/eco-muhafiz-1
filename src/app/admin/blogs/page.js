@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import DeleteConfirmDialog from '@/components/admin/DeleteConfirmDialog';
 
 export default function AdminBlogsPage() {
   const [blogs, setBlogs] = useState([]);
@@ -27,13 +29,12 @@ export default function AdminBlogsPage() {
     loadBlogs();
   }, []);
 
-  async function handleDelete(id, title) {
-    if (!window.confirm(`Delete “${title}”?`)) return;
+  async function handleDelete(id) {
     const res = await fetch(`/api/blogs/${id}`, { method: 'DELETE' });
     if (!res.ok) {
       const data = await res.json();
-      alert(data.error || 'Delete failed.');
-      return;
+      setError(data.error || 'Delete failed.');
+      throw new Error(data.error || 'Delete failed.');
     }
     setBlogs((prev) => prev.filter((b) => b.id !== id));
   }
@@ -42,9 +43,9 @@ export default function AdminBlogsPage() {
     <>
       <div className="admin-page-header">
         <h1>Blogs</h1>
-        <Link href="/admin/blogs/new" className="admin-btn admin-btn-primary">
-          New post
-        </Link>
+        <Button asChild>
+          <Link href="/admin/blogs/new">New post</Link>
+        </Button>
       </div>
 
       <div className="admin-card">
@@ -74,19 +75,14 @@ export default function AdminBlogsPage() {
                     <td>{blog.author}</td>
                     <td>
                       <div className="admin-table-actions">
-                        <Link
-                          href={`/admin/blogs/${blog.id}`}
-                          className="admin-btn admin-btn-secondary"
-                        >
-                          Edit
-                        </Link>
-                        <button
-                          type="button"
-                          className="admin-btn admin-btn-danger"
-                          onClick={() => handleDelete(blog.id, blog.title)}
-                        >
-                          Delete
-                        </button>
+                        <Button asChild variant="outline" size="sm">
+                          <Link href={`/admin/blogs/${blog.id}`}>Edit</Link>
+                        </Button>
+                        <DeleteConfirmDialog
+                          title="Delete blog post?"
+                          description={`This will permanently remove “${blog.title}” from the site. This action cannot be undone.`}
+                          onConfirm={() => handleDelete(blog.id)}
+                        />
                       </div>
                     </td>
                   </tr>

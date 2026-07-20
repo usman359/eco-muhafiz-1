@@ -1,4 +1,5 @@
 import '../../css/admin.css';
+import '../../css/ui.css';
 import AdminShell from '@/components/admin/AdminShell';
 
 export const metadata = {

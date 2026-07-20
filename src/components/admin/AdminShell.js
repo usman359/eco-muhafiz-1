@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { Button } from '@/components/ui/button';
 
 const navItems = [
   { href: '/admin/dashboard', label: 'Dashboard', exact: true },
@@ -50,16 +51,21 @@ export default function AdminShell({ children }) {
             );
           })}
         </nav>
-        <button type="button" className="admin-logout" onClick={handleLogout}>
+        <Button
+          type="button"
+          variant="outline"
+          className="admin-logout"
+          onClick={handleLogout}
+        >
           Logout
-        </button>
+        </Button>
       </aside>
       <div className="admin-main">
         <header className="admin-topbar">
           <span>Manage site content</span>
-          <Link href="/" className="admin-view-site">
-            View site
-          </Link>
+          <Button asChild variant="link">
+            <Link href="/">View site</Link>
+          </Button>
         </header>
         <main className="admin-content">{children}</main>
       </div>

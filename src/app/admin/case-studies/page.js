@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import DeleteConfirmDialog from '@/components/admin/DeleteConfirmDialog';
 
 export default function AdminCaseStudiesPage() {
   const [items, setItems] = useState([]);
@@ -27,13 +29,12 @@ export default function AdminCaseStudiesPage() {
     loadItems();
   }, []);
 
-  async function handleDelete(id, title) {
-    if (!window.confirm(`Delete “${title}”?`)) return;
+  async function handleDelete(id) {
     const res = await fetch(`/api/case-studies/${id}`, { method: 'DELETE' });
     if (!res.ok) {
       const data = await res.json();
-      alert(data.error || 'Delete failed.');
-      return;
+      setError(data.error || 'Delete failed.');
+      throw new Error(data.error || 'Delete failed.');
     }
     setItems((prev) => prev.filter((item) => item.id !== id));
   }
@@ -42,9 +43,9 @@ export default function AdminCaseStudiesPage() {
     <>
       <div className="admin-page-header">
         <h1>Case Studies</h1>
-        <Link href="/admin/case-studies/new" className="admin-btn admin-btn-primary">
-          New case study
-        </Link>
+        <Button asChild>
+          <Link href="/admin/case-studies/new">New case study</Link>
+        </Button>
       </div>
 
       <div className="admin-card">
@@ -72,19 +73,14 @@ export default function AdminCaseStudiesPage() {
                     <td>{item.date}</td>
                     <td>
                       <div className="admin-table-actions">
-                        <Link
-                          href={`/admin/case-studies/${item.id}`}
-                          className="admin-btn admin-btn-secondary"
-                        >
-                          Edit
-                        </Link>
-                        <button
-                          type="button"
-                          className="admin-btn admin-btn-danger"
-                          onClick={() => handleDelete(item.id, item.title)}
-                        >
-                          Delete
-                        </button>
+                        <Button asChild variant="outline" size="sm">
+                          <Link href={`/admin/case-studies/${item.id}`}>Edit</Link>
+                        </Button>
+                        <DeleteConfirmDialog
+                          title="Delete case study?"
+                          description={`This will permanently remove “${item.title}” from the site. This action cannot be undone.`}
+                          onConfirm={() => handleDelete(item.id)}
+                        />
                       </div>
                     </td>
                   </tr>
