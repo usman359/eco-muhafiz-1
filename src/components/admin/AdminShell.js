@@ -64,7 +64,7 @@ export default function AdminShell({ children }) {
         <header className="admin-topbar">
           <span>Manage site content</span>
           <Button asChild variant="link">
-            <Link href="/">View site</Link>
+            <a href="/">View site</a>
           </Button>
         </header>
         <main className="admin-content">{children}</main>

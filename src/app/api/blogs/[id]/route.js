@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { deleteItem, getById, updateItem } from '@/lib/content-store';
+import { deleteItem, getById, getBySlug, updateItem } from '@/lib/content-store';
 import { ADMIN_COOKIE, isValidSessionToken } from '@/lib/admin-auth';
 
 const COLLECTION = 'blogs';
@@ -20,10 +20,14 @@ async function requireAdmin(request) {
   return isValidSessionToken(token);
 }
 
+async function findBlog(idOrSlug) {
+  return (await getById(COLLECTION, idOrSlug)) || (await getBySlug(COLLECTION, idOrSlug));
+}
+
 export async function GET(_request, { params }) {
   try {
     const { id } = await params;
-    const item = await getById(COLLECTION, id);
+    const item = await findBlog(id);
     if (!item) {
       return NextResponse.json({ error: 'Blog not found.' }, { status: 404 });
     }

@@ -39,50 +39,83 @@ export default function MainLayout({ children }) {
   const [checkoutStatus, setCheckoutStatus] = useState('');
 
   // Preloader Canvas progress animation
+  // Re-runs when leaving /admin — first mount on admin skips canvas so it never
+  // completes, which left "View site" stuck on the loading screen.
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
+    if (isAdminRoute) return;
+
+    if (document.body.classList.contains("page-loaded")) {
+      setIsLoaded(true);
+      setPreloaderVisible(false);
+      return;
+    }
+
+    let cancelled = false;
     let animationFrameId;
-    let progress = 0;
+    let completeTimer;
+    let hideTimer;
 
-    const draw = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.beginPath();
-      ctx.strokeStyle = "#ffffff";
-      ctx.lineWidth = 2;
-      ctx.lineCap = "round";
-
-      const x = canvas.width / 2;
-      const y = canvas.height / 2;
-      const radius = x - 2;
-      const startAngle = -Math.PI / 2;
-      const endAngle = startAngle + (progress / 100) * (2 * Math.PI);
-
-      ctx.arc(x, y, radius, startAngle, endAngle);
-      ctx.stroke();
-
-      if (progress < 100) {
-        progress += 3;
-        if (progress > 100) progress = 100;
-        animationFrameId = requestAnimationFrame(draw);
-      } else {
-        // Wait briefly after 100% then trigger page loaded
-        setTimeout(() => {
-          document.body.classList.add("page-loaded");
-          setIsLoaded(true);
-
-          // Wait for transition to complete before unmounting preloader from DOM
-          setTimeout(() => {
-            setPreloaderVisible(false);
-          }, 1000);
-        }, 300);
-      }
+    const finish = () => {
+      if (cancelled) return;
+      document.body.classList.add("page-loaded");
+      setIsLoaded(true);
+      hideTimer = setTimeout(() => {
+        if (!cancelled) setPreloaderVisible(false);
+      }, 1000);
     };
 
-    draw();
-    return () => cancelAnimationFrame(animationFrameId);
-  }, []);
+    const start = () => {
+      if (cancelled) return;
+      const canvas = canvasRef.current;
+      if (!canvas) {
+        finish();
+        setPreloaderVisible(false);
+        return;
+      }
+
+      const ctx = canvas.getContext("2d");
+      let progress = 0;
+
+      const draw = () => {
+        if (cancelled) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 2;
+        ctx.lineCap = "round";
+
+        const x = canvas.width / 2;
+        const y = canvas.height / 2;
+        const radius = x - 2;
+        const startAngle = -Math.PI / 2;
+        const endAngle = startAngle + (progress / 100) * (2 * Math.PI);
+
+        ctx.arc(x, y, radius, startAngle, endAngle);
+        ctx.stroke();
+
+        if (progress < 100) {
+          progress += 3;
+          if (progress > 100) progress = 100;
+          animationFrameId = requestAnimationFrame(draw);
+        } else {
+          completeTimer = setTimeout(finish, 300);
+        }
+      };
+
+      draw();
+    };
+
+    // Defer so the canvas exists after switching away from admin chrome
+    const timer = setTimeout(start, 50);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+      cancelAnimationFrame(animationFrameId);
+      clearTimeout(completeTimer);
+      clearTimeout(hideTimer);
+    };
+  }, [isAdminRoute]);
 
   // Locomotive Scroll smooth scroll initialization
   useEffect(() => {

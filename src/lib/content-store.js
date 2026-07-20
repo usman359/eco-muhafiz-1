@@ -61,6 +61,12 @@ export async function getById(collection, id) {
   return fromRow(collection, rows[0]);
 }
 
+export async function getBySlug(collection, slug) {
+  const t = table(collection);
+  const rows = await sql.query(`SELECT * FROM ${t} WHERE slug = $1`, [slug]);
+  return fromRow(collection, rows[0]);
+}
+
 async function slugExists(t, slug, excludeId) {
   const rows = excludeId
     ? await sql.query(`SELECT 1 FROM ${t} WHERE slug = $1 AND id <> $2`, [slug, excludeId])
