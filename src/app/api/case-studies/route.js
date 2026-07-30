@@ -11,13 +11,8 @@ function validateCaseStudy(body) {
       return `${key} is required.`;
     }
   }
-  if (!Array.isArray(body.metrics)) {
-    return 'metrics must be an array.';
-  }
-  for (const metric of body.metrics) {
-    if (!metric?.label?.trim() || !metric?.value?.trim()) {
-      return 'Each metric needs a label and value.';
-    }
+  if (body.tags && !Array.isArray(body.tags)) {
+    return 'tags must be an array.';
   }
   return null;
 }
@@ -52,10 +47,7 @@ export async function POST(request) {
       location: body.location.trim(),
       desc: body.desc.trim(),
       slug: body.slug?.trim() || undefined,
-      metrics: body.metrics.map((m) => ({
-        label: m.label.trim(),
-        value: m.value.trim(),
-      })),
+      tags: Array.isArray(body.tags) ? body.tags.map((t) => String(t).trim()).filter(Boolean) : [],
     });
 
     return NextResponse.json(item, { status: 201 });

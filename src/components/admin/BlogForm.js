@@ -31,6 +31,7 @@ export default function BlogForm({ initialData = null, blogId = null }) {
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const readTimeOptions = useMemo(() => {
     const opts = [...READ_TIME_OPTIONS];
@@ -39,6 +40,32 @@ export default function BlogForm({ initialData = null, blogId = null }) {
     }
     return opts;
   }, [form.readTime]);
+
+  async function handleFileUpload(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setError('');
+    try {
+      const data = new FormData();
+      data.append('file', file);
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: data,
+      });
+
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || 'Upload failed');
+
+      update('img', result.url);
+    } catch (err) {
+      setError(err.message || 'Failed to upload image.');
+    } finally {
+      setUploading(false);
+    }
+  }
 
   function update(field, value) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -176,16 +203,52 @@ export default function BlogForm({ initialData = null, blogId = null }) {
       </div>
 
       <div className="admin-field">
-        <FieldLabel htmlFor="img" hint="Use a public path like /images/photo.png or a full URL.">
-          Cover image
+        <FieldLabel htmlFor="img" hint="Upload from system or enter an image URL.">
+          Cover Image
         </FieldLabel>
-        <Input
-          id="img"
-          value={form.img}
-          onChange={(e) => update('img', e.target.value)}
-          placeholder="/images/example.png"
-          aria-invalid={Boolean(fieldErrors.img)}
-        />
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '10px' }}>
+          <Input
+            id="img"
+            value={form.img}
+            onChange={(e) => update('img', e.target.value)}
+            placeholder="/images/example.png or /uploads/..."
+            aria-invalid={Boolean(fieldErrors.img)}
+            style={{ flex: 1 }}
+          />
+          <label
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#10b981',
+              color: '#fff',
+              borderRadius: '6px',
+              cursor: uploading ? 'not-allowed' : 'pointer',
+              fontWeight: '600',
+              fontSize: '14px',
+              whiteSpace: 'nowrap',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            {uploading ? 'Uploading…' : '📁 Upload Image'}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileUpload}
+              disabled={uploading}
+              style={{ display: 'none' }}
+            />
+          </label>
+        </div>
+        {form.img && (
+          <div style={{ marginTop: '8px' }}>
+            <img
+              src={form.img}
+              alt="Preview"
+              style={{ maxHeight: '100px', borderRadius: '8px', border: '1px solid #ddd' }}
+            />
+          </div>
+        )}
         {fieldErrors.img && <span className="admin-field-error">{fieldErrors.img}</span>}
       </div>
 

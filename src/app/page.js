@@ -256,34 +256,51 @@ export default function Home() {
 
       {/* Partners strip */}
       <section className="partners-strip">
+        <div className="container text-center mb-3">
+          <span style={{ fontSize: '12px', letterSpacing: '2.5px', textTransform: 'uppercase', color: '#10b981', fontWeight: 'bold' }}>
+            Partners & Supporting Organizations
+          </span>
+        </div>
         <div className="partners-slider">
           <div className="partners-slide-track">
             {/* Set 1 */}
             <div className="partner-logo-item">
-              <img src="/images/partners/bakertilly.png" alt="Baker Tilly" />
-            </div>
-            <div className="partner-logo-item">
-              <img src="/images/partners/catalyst.jpeg" alt="Catalyst" />
+              <img src="/images/partners/prime-minister-youth-program-logo-png_seeklogo-371711.png" alt="Prime Minister's Youth Programme" />
             </div>
             <div className="partner-logo-item">
               <img src="/images/partners/bakertilly.png" alt="Baker Tilly" />
             </div>
             <div className="partner-logo-item">
-              <img src="/images/partners/catalyst.jpeg" alt="Catalyst" />
+              <img src="/images/partners/catalyst.jpeg" alt="Green Catalyst" />
+            </div>
+            <div className="partner-logo-item">
+              <img src="/images/partners/prime-minister-youth-program-logo-png_seeklogo-371711.png" alt="Prime Minister's Youth Programme" />
+            </div>
+            <div className="partner-logo-item">
+              <img src="/images/partners/bakertilly.png" alt="Baker Tilly" />
+            </div>
+            <div className="partner-logo-item">
+              <img src="/images/partners/catalyst.jpeg" alt="Green Catalyst" />
             </div>
 
             {/* Set 2 (Duplicate for infinite seamless loop) */}
             <div className="partner-logo-item">
-              <img src="/images/partners/bakertilly.png" alt="Baker Tilly" />
-            </div>
-            <div className="partner-logo-item">
-              <img src="/images/partners/catalyst.jpeg" alt="Catalyst" />
+              <img src="/images/partners/prime-minister-youth-program-logo-png_seeklogo-371711.png" alt="Prime Minister's Youth Programme" />
             </div>
             <div className="partner-logo-item">
               <img src="/images/partners/bakertilly.png" alt="Baker Tilly" />
             </div>
             <div className="partner-logo-item">
-              <img src="/images/partners/catalyst.jpeg" alt="Catalyst" />
+              <img src="/images/partners/catalyst.jpeg" alt="Green Catalyst" />
+            </div>
+            <div className="partner-logo-item">
+              <img src="/images/partners/prime-minister-youth-program-logo-png_seeklogo-371711.png" alt="Prime Minister's Youth Programme" />
+            </div>
+            <div className="partner-logo-item">
+              <img src="/images/partners/bakertilly.png" alt="Baker Tilly" />
+            </div>
+            <div className="partner-logo-item">
+              <img src="/images/partners/catalyst.jpeg" alt="Green Catalyst" />
             </div>
           </div>
         </div>

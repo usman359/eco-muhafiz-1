@@ -149,37 +149,33 @@ export default function CaseStudies() {
                       </p>
 
                       <div
-                        className="row"
                         style={{
                           borderTop: '1px solid rgba(0,0,0,0.06)',
                           paddingTop: '20px',
+                          display: 'flex',
+                          flexWrap: 'wrap',
+                          gap: '10px',
                         }}
                       >
-                        {(cs.metrics || []).map((m, mIdx) => (
-                          <div key={mIdx} className="col-4">
-                            <span
-                              style={{
-                                display: 'block',
-                                fontSize: '24px',
-                                fontWeight: '800',
-                                color: 'var(--accent-green, #10b981)',
-                              }}
-                            >
-                              {m.value}
-                            </span>
-                            <small
-                              style={{
-                                display: 'block',
-                                fontSize: '11px',
-                                color: '#777',
-                                textTransform: 'uppercase',
-                                letterSpacing: '1px',
-                                marginTop: '2px',
-                              }}
-                            >
-                              {m.label}
-                            </small>
-                          </div>
+                        {(Array.isArray(cs.tags) && cs.tags.length > 0
+                          ? cs.tags
+                          : (cs.metrics || []).map((m) => m.label || m.value)
+                        ).map((tag, tIdx) => (
+                          <span
+                            key={tIdx}
+                            style={{
+                              background: 'rgba(16, 185, 129, 0.08)',
+                              color: '#10b981',
+                              border: '1px solid rgba(16, 185, 129, 0.2)',
+                              borderRadius: '20px',
+                              padding: '6px 16px',
+                              fontSize: '13px',
+                              fontWeight: '600',
+                              letterSpacing: '0.3px',
+                            }}
+                          >
+                            #{tag}
+                          </span>
                         ))}
                       </div>
                     </div>

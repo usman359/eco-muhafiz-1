@@ -33,7 +33,7 @@ function fromRow(collection, row) {
       img: row.img,
       location: row.location,
       desc: row.desc,
-      metrics: row.metrics ?? [],
+      tags: row.tags ?? [],
     };
   }
   return {
@@ -87,7 +87,7 @@ export async function createItem(collection, data) {
 
   if (collection === 'case-studies') {
     await sql.query(
-      `INSERT INTO case_studies (id, slug, title, date, img, location, "desc", metrics)
+      `INSERT INTO case_studies (id, slug, title, date, img, location, "desc", tags)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
       [
         id,
@@ -97,7 +97,7 @@ export async function createItem(collection, data) {
         data.img,
         data.location,
         data.desc,
-        JSON.stringify(data.metrics || []),
+        JSON.stringify(data.tags || []),
       ]
     );
   } else {
@@ -123,7 +123,7 @@ export async function updateItem(collection, id, data) {
   if (collection === 'case-studies') {
     await sql.query(
       `UPDATE case_studies
-       SET slug = $1, title = $2, date = $3, img = $4, location = $5, "desc" = $6, metrics = $7
+       SET slug = $1, title = $2, date = $3, img = $4, location = $5, "desc" = $6, tags = $7
        WHERE id = $8`,
       [
         slug,
@@ -132,7 +132,7 @@ export async function updateItem(collection, id, data) {
         data.img ?? existing.img,
         data.location ?? existing.location,
         data.desc ?? existing.desc,
-        JSON.stringify(data.metrics ?? existing.metrics),
+        JSON.stringify(data.tags ?? existing.tags),
         id,
       ]
     );

@@ -19,11 +19,7 @@ const emptyCaseStudy = {
   location: '',
   desc: '',
   slug: '',
-  metrics: [
-    { label: '', value: '' },
-    { label: '', value: '' },
-    { label: '', value: '' },
-  ],
+  tags: [],
 };
 
 function initialStatusMode(date) {
@@ -39,16 +35,20 @@ export default function CaseStudyForm({ initialData = null, caseStudyId = null }
   const [form, setForm] = useState({
     ...emptyCaseStudy,
     ...initialData,
-    metrics: initialData?.metrics?.length
-      ? initialData.metrics.map((m) => ({ label: m.label, value: m.value }))
-      : emptyCaseStudy.metrics,
+    tags: initialData?.tags?.length
+      ? [...initialData.tags]
+      : initialData?.metrics?.length
+      ? initialData.metrics.map((m) => m.label || m.value).filter(Boolean)
+      : [],
   });
+  const [tagInput, setTagInput] = useState('');
   const [statusMode, setStatusMode] = useState(() =>
     initialStatusMode(initialData?.date || '')
   );
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState({});
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   const statusOptions = useMemo(() => CASE_STUDY_STATUS_OPTIONS, []);
 
@@ -83,33 +83,46 @@ export default function CaseStudyForm({ initialData = null, caseStudyId = null }
     update('date', value);
   }
 
-  function updateMetric(index, field, value) {
-    setForm((prev) => {
-      const metrics = prev.metrics.map((m, i) =>
-        i === index ? { ...m, [field]: value } : m
-      );
-      return { ...prev, metrics };
-    });
-    setFieldErrors((prev) => {
-      if (!prev.metrics) return prev;
-      const next = { ...prev };
-      delete next.metrics;
-      return next;
-    });
+  function addTag() {
+    const trimmed = tagInput.trim();
+    if (!trimmed) return;
+    if (!form.tags.includes(trimmed)) {
+      setForm((prev) => ({ ...prev, tags: [...prev.tags, trimmed] }));
+    }
+    setTagInput('');
   }
 
-  function addMetric() {
+  function removeTag(tagToRemove) {
     setForm((prev) => ({
       ...prev,
-      metrics: [...prev.metrics, { label: '', value: '' }],
+      tags: prev.tags.filter((t) => t !== tagToRemove),
     }));
   }
 
-  function removeMetric(index) {
-    setForm((prev) => ({
-      ...prev,
-      metrics: prev.metrics.filter((_, i) => i !== index),
-    }));
+  async function handleFileUpload(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    setError('');
+    try {
+      const data = new FormData();
+      data.append('file', file);
+
+      const res = await fetch('/api/upload', {
+        method: 'POST',
+        body: data,
+      });
+
+      const result = await res.json();
+      if (!res.ok) throw new Error(result.error || 'Upload failed');
+
+      update('img', result.url);
+    } catch (err) {
+      setError(err.message || 'Failed to upload image.');
+    } finally {
+      setUploading(false);
+    }
   }
 
   function validate() {
@@ -119,11 +132,6 @@ export default function CaseStudyForm({ initialData = null, caseStudyId = null }
     if (!form.location.trim()) next.location = 'Location is required.';
     if (!form.img.trim()) next.img = 'Image path or URL is required.';
     if (!form.desc.trim()) next.desc = 'Description is required.';
-    if (!form.metrics.length) {
-      next.metrics = 'Add at least one metric.';
-    } else if (form.metrics.some((m) => !m.label.trim() || !m.value.trim())) {
-      next.metrics = 'Each metric needs both a label and a value.';
-    }
     setFieldErrors(next);
     return Object.keys(next).length === 0;
   }
@@ -218,16 +226,52 @@ export default function CaseStudyForm({ initialData = null, caseStudyId = null }
       </div>
 
       <div className="admin-field">
-        <FieldLabel htmlFor="img" hint="Use a public path like /images/photo.png or a full URL.">
-          Cover image
+        <FieldLabel htmlFor="img" hint="Upload from system or enter an image URL.">
+          Cover Image
         </FieldLabel>
-        <Input
-          id="img"
-          value={form.img}
-          onChange={(e) => update('img', e.target.value)}
-          placeholder="/images/example.png"
-          aria-invalid={Boolean(fieldErrors.img)}
-        />
+        <div style={{ display: 'flex', gap: '10px', alignItems: 'center', marginBottom: '10px' }}>
+          <Input
+            id="img"
+            value={form.img}
+            onChange={(e) => update('img', e.target.value)}
+            placeholder="/images/example.png or /uploads/..."
+            aria-invalid={Boolean(fieldErrors.img)}
+            style={{ flex: 1 }}
+          />
+          <label
+            style={{
+              padding: '8px 16px',
+              backgroundColor: '#10b981',
+              color: '#fff',
+              borderRadius: '6px',
+              cursor: uploading ? 'not-allowed' : 'pointer',
+              fontWeight: '600',
+              fontSize: '14px',
+              whiteSpace: 'nowrap',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+          >
+            {uploading ? 'Uploading…' : '📁 Upload Image'}
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileUpload}
+              disabled={uploading}
+              style={{ display: 'none' }}
+            />
+          </label>
+        </div>
+        {form.img && (
+          <div style={{ marginTop: '8px' }}>
+            <img
+              src={form.img}
+              alt="Preview"
+              style={{ maxHeight: '100px', borderRadius: '8px', border: '1px solid #ddd' }}
+            />
+          </div>
+        )}
         {fieldErrors.img && <span className="admin-field-error">{fieldErrors.img}</span>}
       </div>
 
@@ -257,42 +301,58 @@ export default function CaseStudyForm({ initialData = null, caseStudyId = null }
       </div>
 
       <div className="admin-field">
-        <FieldLabel hint="Usually three impact metrics work best on the card.">
-          Metrics
+        <FieldLabel hint="Add tags to highlight technology, scope, or partners.">
+          Tags
         </FieldLabel>
-        <div className="admin-metrics">
-          {form.metrics.map((metric, index) => (
-            <div key={index} className="admin-metric-row">
-              <Input
-                value={metric.label}
-                onChange={(e) => updateMetric(index, 'label', e.target.value)}
-                placeholder="Label"
-                aria-label={`Metric ${index + 1} label`}
-              />
-              <Input
-                value={metric.value}
-                onChange={(e) => updateMetric(index, 'value', e.target.value)}
-                placeholder="Value"
-                aria-label={`Metric ${index + 1} value`}
-              />
-              <Button
-                type="button"
-                variant="destructive"
-                size="sm"
-                onClick={() => removeMetric(index)}
-                disabled={form.metrics.length <= 1}
-              >
-                Remove
-              </Button>
-            </div>
-          ))}
-          <Button type="button" variant="outline" onClick={addMetric}>
-            Add metric
+        <div style={{ display: 'flex', gap: '10px', marginBottom: '12px' }}>
+          <Input
+            value={tagInput}
+            onChange={(e) => setTagInput(e.target.value)}
+            placeholder="Add a tag (e.g. Bioacoustics)"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                e.preventDefault();
+                addTag();
+              }
+            }}
+          />
+          <Button type="button" onClick={addTag} variant="outline">
+            Add Tag
           </Button>
         </div>
-        {fieldErrors.metrics && (
-          <span className="admin-field-error">{fieldErrors.metrics}</span>
-        )}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+          {form.tags.map((tag, idx) => (
+            <span
+              key={idx}
+              style={{
+                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                color: '#10b981',
+                padding: '4px 12px',
+                borderRadius: '16px',
+                fontSize: '13px',
+                fontWeight: '600',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px',
+              }}
+            >
+              #{tag}
+              <button
+                type="button"
+                onClick={() => removeTag(tag)}
+                style={{
+                  border: 'none',
+                  background: 'none',
+                  color: '#ef4444',
+                  cursor: 'pointer',
+                  fontWeight: 'bold',
+                }}
+              >
+                ×
+              </button>
+            </span>
+          ))}
+        </div>
       </div>
 
       <div className="admin-form-actions">

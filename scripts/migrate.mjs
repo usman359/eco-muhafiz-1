@@ -35,9 +35,13 @@ async function main() {
       img TEXT NOT NULL,
       location TEXT NOT NULL,
       "desc" TEXT NOT NULL,
-      metrics JSONB NOT NULL DEFAULT '[]',
+      tags JSONB NOT NULL DEFAULT '[]',
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )
+  `);
+
+  await sql.query(`
+    ALTER TABLE case_studies ADD COLUMN IF NOT EXISTS tags JSONB NOT NULL DEFAULT '[]'
   `);
 
   await sql.query(`
@@ -57,23 +61,24 @@ async function main() {
 
   console.log('Tables ready: case_studies, blogs');
 
-  const [{ count: caseStudyCount }] = await sql.query('SELECT COUNT(*)::int AS count FROM case_studies');
-  if (caseStudyCount === 0) {
-    const caseStudiesPath = path.join(process.cwd(), 'data', 'case-studies.json');
-    if (existsSync(caseStudiesPath)) {
-      const items = JSON.parse(readFileSync(caseStudiesPath, 'utf8'));
-      for (const item of items) {
-        await sql.query(
-          `INSERT INTO case_studies (id, slug, title, date, img, location, "desc", metrics)
-           VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-           ON CONFLICT (id) DO NOTHING`,
-          [item.id, item.slug, item.title, item.date, item.img, item.location, item.desc, JSON.stringify(item.metrics || [])]
-        );
-      }
-      console.log(`Seeded ${items.length} case studies.`);
+  const caseStudiesPath = path.join(process.cwd(), 'data', 'case-studies.json');
+  if (existsSync(caseStudiesPath)) {
+    const items = JSON.parse(readFileSync(caseStudiesPath, 'utf8'));
+    for (const item of items) {
+      await sql.query(
+        `INSERT INTO case_studies (id, slug, title, date, img, location, "desc", tags)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+         ON CONFLICT (id) DO UPDATE SET
+           tags = EXCLUDED.tags,
+           title = EXCLUDED.title,
+           "desc" = EXCLUDED.desc,
+           location = EXCLUDED.location,
+           date = EXCLUDED.date,
+           img = EXCLUDED.img`,
+        [item.id, item.slug, item.title, item.date, item.img, item.location, item.desc, JSON.stringify(item.tags || [])]
+      );
     }
-  } else {
-    console.log(`case_studies already has ${caseStudyCount} rows, skipping seed.`);
+    console.log(`Synced ${items.length} case studies into database.`);
   }
 
   const [{ count: blogCount }] = await sql.query('SELECT COUNT(*)::int AS count FROM blogs');
