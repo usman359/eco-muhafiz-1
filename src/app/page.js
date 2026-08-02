@@ -130,25 +130,25 @@ export default function Home() {
           <div className="row align-items-center">
             <div className="col-md-4">
               <div className="metric-item">
-                <div className="metric-number">&gt; 12,500 ha</div>
+                <div className="metric-number">11,000 ha/year</div>
                 <div className="metric-label">
-                  area under real-time monitoring and threat prevention
+                  Average forest area lost annually in Pakistan
                 </div>
               </div>
             </div>
             <div className="col-md-4">
               <div className="metric-item">
-                <div className="metric-number">73%</div>
+                <div className="metric-number">20 hectares/device</div>
                 <div className="metric-label">
-                  decline in illegal logging alerts within active pilot zones
+                  Real-time monitoring coverage by each Eco Muhafiz unit
                 </div>
               </div>
             </div>
             <div className="col-md-4">
               <div className="metric-item">
-                <div className="metric-number">&gt; 98.6%</div>
+                <div className="metric-number">90%</div>
                 <div className="metric-label">
-                  accuracy in edge AI sound classification (chainsaws, gunshots)
+                  Edge AI sound classification accuracy (Chainsaws, gunshots &amp; other high-risk forest sounds)
                 </div>
               </div>
             </div>
@@ -347,9 +347,11 @@ export default function Home() {
             <div className="col-lg-6">
               <div className="solution-image-container mt-4 mt-lg-0">
                 <img
+                  key={activeSolutionTab}
                   id="solutionImage"
                   src={solutionTabs[activeSolutionTab].img}
                   alt={solutionTabs[activeSolutionTab].title}
+                  className="fade-in-image"
                 />
               </div>
             </div>
@@ -387,9 +389,10 @@ export default function Home() {
                 }}
               >
                 <video
-                  src="/videos/final-2.mp4"
+                  src="/videos/main.mp4"
                   controls
                   preload="metadata"
+                  playsInline
                   style={{ width: "100%", display: "block" }}
                 />
               </div>
@@ -586,23 +589,37 @@ export default function Home() {
                   ecosystems are collapsing in real time. We are building the
                   system that measures, monitors, and protects them.&quot;
                 </p>
-                <h6
-                  style={{
-                    fontFamily: "var(--font-sans) !important",
-                    fontSize: "16px !important",
-                    fontWeight: 700,
-                    color: "var(--text-dark) !important",
-                    margin: 0,
-                  }}
-                >
-                  Anosha Zia
-                  <br />
-                  <small
-                    style={{ fontWeight: 500, color: "var(--accent-green)" }}
-                  >
-                    Founder & CEO, Eco Muhafiz
-                  </small>
-                </h6>
+                <div style={{ display: "flex", alignItems: "center", gap: "15px", marginTop: "15px" }}>
+                  <img
+                    src="/images/team/anosha.jpeg"
+                    alt="Anosha Zia"
+                    style={{
+                      width: "56px",
+                      height: "56px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div>
+                    <h6
+                      style={{
+                        fontFamily: "var(--font-sans) !important",
+                        fontSize: "16px !important",
+                        fontWeight: 700,
+                        color: "var(--text-dark) !important",
+                        margin: 0,
+                      }}
+                    >
+                      Anosha Zia
+                    </h6>
+                    <small
+                      style={{ fontWeight: 500, color: "var(--accent-green)", fontSize: "13px" }}
+                    >
+                      Founder &amp; CEO, Eco Muhafiz
+                    </small>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
@@ -633,23 +650,37 @@ export default function Home() {
                   preserve biodiversity. Our vision is simple: a world where
                   technology works in harmony with nature.&quot;
                 </p>
-                <h6
-                  style={{
-                    fontFamily: "var(--font-sans) !important",
-                    fontSize: "16px !important",
-                    fontWeight: 700,
-                    color: "var(--text-dark) !important",
-                    margin: 0,
-                  }}
-                >
-                  Aniqa Gulraiz
-                  <br />
-                  <small
-                    style={{ fontWeight: 500, color: "var(--accent-green)" }}
-                  >
-                    Co-founder and CGO
-                  </small>
-                </h6>
+                <div style={{ display: "flex", alignItems: "center", gap: "15px", marginTop: "15px" }}>
+                  <img
+                    src="/images/team/aniqa.jpeg"
+                    alt="Aniqa Gulraiz"
+                    style={{
+                      width: "56px",
+                      height: "56px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div>
+                    <h6
+                      style={{
+                        fontFamily: "var(--font-sans) !important",
+                        fontSize: "16px !important",
+                        fontWeight: 700,
+                        color: "var(--text-dark) !important",
+                        margin: 0,
+                      }}
+                    >
+                      Aniqa Gulraiz
+                    </h6>
+                    <small
+                      style={{ fontWeight: 500, color: "var(--accent-green)", fontSize: "13px" }}
+                    >
+                      Co-Founder &amp; CSO, Eco Muhafiz
+                    </small>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
@@ -680,23 +711,37 @@ export default function Home() {
                   sustainable action, and collective responsibility for a
                   greener future.&quot;
                 </p>
-                <h6
-                  style={{
-                    fontFamily: "var(--font-sans) !important",
-                    fontSize: "16px !important",
-                    fontWeight: 700,
-                    color: "var(--text-dark) !important",
-                    margin: 0,
-                  }}
-                >
-                  Aqsa Sarfraz
-                  <br />
-                  <small
-                    style={{ fontWeight: 500, color: "var(--accent-green)" }}
-                  >
-                    Co-Founder, Eco Muhafiz
-                  </small>
-                </h6>
+                <div style={{ display: "flex", alignItems: "center", gap: "15px", marginTop: "15px" }}>
+                  <img
+                    src="/images/team/aqsa.jpeg"
+                    alt="Aqsa Sarfraz"
+                    style={{
+                      width: "56px",
+                      height: "56px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      flexShrink: 0,
+                    }}
+                  />
+                  <div>
+                    <h6
+                      style={{
+                        fontFamily: "var(--font-sans) !important",
+                        fontSize: "16px !important",
+                        fontWeight: 700,
+                        color: "var(--text-dark) !important",
+                        margin: 0,
+                      }}
+                    >
+                      Aqsa Sarfraz
+                    </h6>
+                    <small
+                      style={{ fontWeight: 500, color: "var(--accent-green)", fontSize: "13px" }}
+                    >
+                      Co-Founder, Eco Muhafiz
+                    </small>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

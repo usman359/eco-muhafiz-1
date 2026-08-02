@@ -27,7 +27,7 @@ export default function ProductDetailPage({ params }) {
     addToCart({
       id: product.id,
       title: product.title,
-      price: product.id === 'eco-guardian' ? 149 : 15,
+      price: product.id === 'eco-guardian' ? 45000 : 15000,
       desc: product.subtitle,
     });
     setIsCartOpen(true);
@@ -75,10 +75,10 @@ export default function ProductDetailPage({ params }) {
                       {product.desc}
                     </p>
                     <button 
-                      onClick={handleSponsor}
-                      style={{ padding: '12px 28px', backgroundColor: '#10b981', color: '#ffffff', border: 'none', borderRadius: '8px', fontWeight: '700', cursor: 'pointer', transition: '0.2s' }}
+                      disabled
+                      style={{ padding: '12px 28px', backgroundColor: '#e5e7eb', color: '#6b7280', border: 'none', borderRadius: '8px', fontWeight: '700', cursor: 'not-allowed', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                     >
-                      Sponsor This Product
+                      <i className="fas fa-clock"></i> Sponsorship Opening Soon
                     </button>
                   </div>
                 </div>

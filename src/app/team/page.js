@@ -14,7 +14,7 @@ export default function Team() {
     {
       name: 'Aniqa Gulraiz',
       img: '/images/team/aniqa.jpeg',
-      role: 'Co-founder and CGO',
+      role: 'Co-Founder & CSO, Eco Muhafiz',
       scrollSpeed: '0',
       desc: '“At Eco Muhafiz, we believe the future of conservation lies in understanding nature before it is lost. By transforming forest sounds into actionable intelligence, we help protect ecosystems, detect threats, and preserve biodiversity. Our vision is simple: a world where technology works in harmony with nature, not against it.”',
     },

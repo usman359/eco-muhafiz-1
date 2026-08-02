@@ -12,21 +12,24 @@ export default function Products() {
     {
       id: 'device',
       title: 'Muhafiz IoT Acoustic Device',
-      price: 149,
+      price: 45000,
+      formattedPrice: 'PKR 45,000',
       desc: 'Sponsor one solar-powered edge-AI bioacoustic sensor for real-time threat detection.',
       icon: 'fa-microchip',
     },
     {
       id: 'hectare',
       title: 'Forest Hectare Protection',
-      price: 15,
+      price: 5000,
+      formattedPrice: 'PKR 5,000',
       desc: 'Sponsor a full hectare of forest telemetry and satellite canopy auditing for 1 year.',
       icon: 'fa-tree',
     },
     {
       id: 'kit',
       title: 'Ranger Response Kit',
-      price: 49,
+      price: 15000,
+      formattedPrice: 'PKR 15,000',
       desc: 'Sponsor a communications radio and first-aid response gear for a local forest guard.',
       icon: 'fa-shield-alt',
     },
@@ -156,6 +159,11 @@ export default function Products() {
               <p style={{ color: '#2c4c3e', maxWidth: '600px', margin: '15px auto 0 auto', fontSize: '15px', lineHeight: '1.6', fontWeight: '500' }}>
                 Your contributions directly fund the assembly, shipping, and installation of hardware in critical reserves like the Margalla Hills.
               </p>
+              <div style={{ marginTop: '14px' }}>
+                <span style={{ display: 'inline-block', background: '#fef3c7', color: '#92400e', border: '1px solid #fde68a', padding: '6px 18px', borderRadius: '50px', fontSize: '13px', fontWeight: '700' }}>
+                  <i className="fas fa-clock" style={{ marginRight: '6px' }}></i> Direct Bank & Online Sponsorships Opening Soon
+                </span>
+              </div>
             </div>
           </div>
 
@@ -174,7 +182,8 @@ export default function Products() {
                   justifyContent: 'space-between',
                   boxShadow: '0 10px 30px rgba(15,44,32,0.06)',
                   transition: '0.3s ease',
-                  cursor: 'default'
+                  cursor: 'default',
+                  position: 'relative'
                 }}
                 className="sponsor-card"
                 onMouseEnter={(e) => {
@@ -207,57 +216,29 @@ export default function Products() {
                     <p style={{ color: '#2c4c3e', fontSize: '14px', lineHeight: '1.6', marginBottom: '25px', fontWeight: '400' }}>{item.desc}</p>
                   </div>
                   <div>
-                    <div style={{ fontSize: '32px', fontWeight: '800', color: '#10b981', marginBottom: '25px' }}>
-                      ${item.price} <span style={{ fontSize: '14px', fontWeight: 'normal', color: '#555555' }}>/ unit</span>
+                    <div style={{ fontSize: '26px', fontWeight: '800', color: '#10b981', marginBottom: '20px' }}>
+                      {item.formattedPrice || `PKR ${item.price.toLocaleString()}`} <span style={{ fontSize: '13px', fontWeight: 'normal', color: '#555555' }}>/ unit</span>
                     </div>
-                    <div style={{ display: 'flex', gap: '10px' }}>
-                      <button
-                        onClick={() => addToCart(item)}
-                        style={{
-                          flex: 1,
-                          padding: '12px 6px',
-                          background: 'transparent',
-                          color: '#0f2c20',
-                          border: '2px solid #10b981',
-                          borderRadius: '8px',
-                          fontWeight: '700',
-                          fontSize: '13px',
-                          cursor: 'pointer',
-                          transition: '0.2s'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = 'rgba(16,185,129,0.1)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = 'transparent';
-                        }}
-                      >
-                        Add to Cart
-                      </button>
-                      <button
-                        onClick={() => handleBuyNow(item)}
-                        style={{
-                          flex: 1,
-                          padding: '12px 6px',
-                          background: '#10b981',
-                          color: '#ffffff',
-                          border: 'none',
-                          borderRadius: '8px',
-                          fontWeight: '700',
-                          fontSize: '13px',
-                          cursor: 'pointer',
-                          transition: '0.2s'
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.background = '#059669';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.background = '#10b981';
-                        }}
-                      >
-                        Buy Now
-                      </button>
-                    </div>
+                    <button
+                      disabled
+                      style={{
+                        width: '100%',
+                        padding: '12px 18px',
+                        background: '#e5e7eb',
+                        color: '#6b7280',
+                        border: 'none',
+                        borderRadius: '10px',
+                        fontWeight: '700',
+                        fontSize: '13px',
+                        cursor: 'not-allowed',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px'
+                      }}
+                    >
+                      <i className="fas fa-clock"></i> Sponsorship Opening Soon
+                    </button>
                   </div>
                 </div>
               </div>

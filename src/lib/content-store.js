@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { sql } from '@/lib/db';
+import { sql } from './db.js';
 
 const TABLES = {
   'case-studies': 'case_studies',
@@ -49,22 +49,60 @@ function fromRow(collection, row) {
   };
 }
 
+import { readFileSync, existsSync } from 'fs';
+import path from 'path';
+
+function readJsonFallback(collection) {
+  try {
+    const filePath = path.join(process.cwd(), 'data', `${collection}.json`);
+    if (existsSync(filePath)) {
+      return JSON.parse(readFileSync(filePath, 'utf8'));
+    }
+  } catch (e) {
+    console.warn('JSON fallback error:', e.message);
+  }
+  return [];
+}
+
 export async function readCollection(collection) {
-  const t = table(collection);
-  const rows = await sql.query(`SELECT * FROM ${t} ORDER BY created_at DESC`);
-  return rows.map((row) => fromRow(collection, row));
+  try {
+    const t = table(collection);
+    const rows = await sql.query(`SELECT * FROM ${t} ORDER BY created_at DESC`);
+    if (rows && rows.length > 0) {
+      return rows.map((row) => fromRow(collection, row));
+    }
+  } catch (err) {
+    console.warn(`DB read error for ${collection}, using fallback:`, err.message);
+  }
+  return readJsonFallback(collection);
 }
 
 export async function getById(collection, id) {
-  const t = table(collection);
-  const rows = await sql.query(`SELECT * FROM ${t} WHERE id = $1`, [id]);
-  return fromRow(collection, rows[0]);
+  try {
+    const t = table(collection);
+    const rows = await sql.query(`SELECT * FROM ${t} WHERE id = $1`, [id]);
+    if (rows && rows.length > 0) {
+      return fromRow(collection, rows[0]);
+    }
+  } catch (err) {
+    console.warn(`DB getById error for ${collection}, using fallback:`, err.message);
+  }
+  const fallbackItems = readJsonFallback(collection);
+  return fallbackItems.find((item) => item.id === id) || null;
 }
 
 export async function getBySlug(collection, slug) {
-  const t = table(collection);
-  const rows = await sql.query(`SELECT * FROM ${t} WHERE slug = $1`, [slug]);
-  return fromRow(collection, rows[0]);
+  try {
+    const t = table(collection);
+    const rows = await sql.query(`SELECT * FROM ${t} WHERE slug = $1`, [slug]);
+    if (rows && rows.length > 0) {
+      return fromRow(collection, rows[0]);
+    }
+  } catch (err) {
+    console.warn(`DB getBySlug error for ${collection}, using fallback:`, err.message);
+  }
+  const fallbackItems = readJsonFallback(collection);
+  return fallbackItems.find((item) => item.slug === slug) || null;
 }
 
 async function slugExists(t, slug, excludeId) {

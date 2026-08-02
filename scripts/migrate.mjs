@@ -45,21 +45,22 @@ async function main() {
   `);
 
   await sql.query(`
-    CREATE TABLE IF NOT EXISTS blogs (
+    CREATE TABLE IF NOT EXISTS sponsorships (
       id TEXT PRIMARY KEY,
-      slug TEXT UNIQUE NOT NULL,
-      title TEXT NOT NULL,
-      date TEXT NOT NULL,
-      category TEXT NOT NULL,
-      img TEXT NOT NULL,
-      read_time TEXT NOT NULL,
-      author TEXT NOT NULL,
-      "desc" TEXT NOT NULL,
+      contributor_name TEXT NOT NULL,
+      contributor_email TEXT NOT NULL,
+      contributor_phone TEXT NOT NULL,
+      amount NUMERIC NOT NULL,
+      payment_method TEXT NOT NULL DEFAULT 'easypaisa',
+      trx_id TEXT,
+      payment_proof TEXT,
+      items JSONB NOT NULL DEFAULT '[]',
+      certificate_code TEXT UNIQUE NOT NULL,
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     )
   `);
 
-  console.log('Tables ready: case_studies, blogs');
+  console.log('Tables ready: case_studies, blogs, sponsorships');
 
   const caseStudiesPath = path.join(process.cwd(), 'data', 'case-studies.json');
   if (existsSync(caseStudiesPath)) {

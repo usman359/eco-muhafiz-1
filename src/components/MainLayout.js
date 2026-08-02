@@ -35,6 +35,16 @@ export default function MainLayout({ children }) {
   const [isCheckoutSuccessOpen, setIsCheckoutSuccessOpen] = useState(false);
   const [demoForm, setDemoForm] = useState({ name: '', email: '', phone: '' });
   const [checkoutForm, setCheckoutForm] = useState({ name: '', email: '', phone: '' });
+  const [paymentMethod, setPaymentMethod] = useState('easypaisa');
+  const [trxId, setTrxId] = useState('');
+  const [paymentProof, setPaymentProof] = useState('');
+  const [paymentProofName, setPaymentProofName] = useState('');
+  const [activeCertificate, setActiveCertificate] = useState(null);
+
+  const [isLookupModalOpen, setIsLookupModalOpen] = useState(false);
+  const [lookupEmail, setLookupEmail] = useState('');
+  const [lookupResults, setLookupResults] = useState(null);
+  const [lookupLoading, setLookupLoading] = useState(false);
   const [demoStatus, setDemoStatus] = useState('');
   const [checkoutStatus, setCheckoutStatus] = useState('');
 
@@ -351,7 +361,28 @@ export default function MainLayout({ children }) {
                 <path className="line line-bottom" d="M0,21h30" />
               </svg>
             </div>
-            <div className="navbar-button-group" style={{ display: 'flex', alignItems: 'center' }}>
+            <div className="navbar-button-group" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              {/* <button
+                onClick={() => setIsLookupModalOpen(true)}
+                className="nav-btn-cert"
+                style={{
+                  background: 'rgba(255,255,255,0.12)',
+                  color: '#ffffff',
+                  border: '1px solid rgba(255,255,255,0.25)',
+                  borderRadius: '100px',
+                  padding: '0 16px',
+                  height: '40px',
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: '0.2s ease',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '6px'
+                }}
+              >
+                <i className="fas fa-award" style={{ color: '#10b981' }}></i> My Certificates
+              </button> */}
               <button
                 onClick={openLiveDemo}
                 className="nav-btn-demo"
@@ -786,8 +817,8 @@ export default function MainLayout({ children }) {
                           </div>
                         </div>
                         <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                          <span style={{ fontSize: '16px', fontWeight: '700', color: 'var(--accent-green, #10b981)' }}>
-                            ${item.price * item.quantity}
+                          <span style={{ fontSize: '15px', fontWeight: '700', color: 'var(--accent-green, #10b981)' }}>
+                            PKR {(item.price * item.quantity).toLocaleString()}
                           </span>
                           <button
                             onClick={() => removeFromCart(item.id)}
@@ -796,7 +827,7 @@ export default function MainLayout({ children }) {
                               border: 'none',
                               color: '#e74c3c',
                               cursor: 'pointer',
-                              fontSize: '14px',
+                              fontSize: '13px',
                               padding: 0,
                               textAlign: 'right'
                             }}
@@ -808,101 +839,46 @@ export default function MainLayout({ children }) {
                     ))}
                   </div>
 
-                  {/* Summary & Checkout Form */}
+                  {/* Summary & Coming Soon Sponsorship Notice */}
                   <div style={{ background: '#fcfcfc', border: '1px solid #eee', borderRadius: '16px', padding: '20px', marginBottom: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px', borderBottom: '1px solid #eee', paddingBottom: '12px' }}>
                       <span style={{ fontWeight: '600', color: '#555' }}>Total Sponsorship</span>
                       <span style={{ fontWeight: '800', fontSize: '18px', color: '#152c20' }}>
-                        ${cart.reduce((sum, item) => sum + item.price * item.quantity, 0)}
+                        PKR {cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toLocaleString()}
                       </span>
                     </div>
 
-                    <h5 style={{ margin: '0 0 15px 0', fontSize: '15px', fontWeight: '700', color: '#333' }}>Contributor Details</h5>
-                    <form onSubmit={(e) => {
-                      e.preventDefault();
-                      setCheckoutStatus('submitting');
-                      setTimeout(() => {
-                        setCheckoutStatus('');
-                        setIsCartOpen(false);
-                        setIsCheckoutSuccessOpen(true);
-                      }, 1200);
-                    }}>
-                      <div style={{ marginBottom: '10px' }}>
-                        <input
-                          type="text"
-                          placeholder="Contributor Name"
-                          required
-                          value={checkoutForm.name}
-                          onChange={(e) => setCheckoutForm({ ...checkoutForm, name: e.target.value })}
-                          style={{
-                            width: '100%',
-                            padding: '12px 15px',
-                            background: '#fff',
-                            border: '1px solid #ddd',
-                            borderRadius: '8px',
-                            fontSize: '14px',
-                            outline: 'none',
-                            color: '#333'
-                          }}
-                        />
+                    <div style={{ background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '16px', padding: '24px', textAlign: 'center', marginTop: '15px' }}>
+                      <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'rgba(16,185,129,0.15)', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px auto', fontSize: '22px' }}>
+                        <i className="fas fa-rocket"></i>
                       </div>
-                      <div style={{ marginBottom: '10px' }}>
-                        <input
-                          type="email"
-                          placeholder="Email Address"
-                          required
-                          value={checkoutForm.email}
-                          onChange={(e) => setCheckoutForm({ ...checkoutForm, email: e.target.value })}
-                          style={{
-                            width: '100%',
-                            padding: '12px 15px',
-                            background: '#fff',
-                            border: '1px solid #ddd',
-                            borderRadius: '8px',
-                            fontSize: '14px',
-                            outline: 'none',
-                            color: '#333'
-                          }}
-                        />
-                      </div>
-                      <div style={{ marginBottom: '15px' }}>
-                        <input
-                          type="tel"
-                          placeholder="Phone Number"
-                          required
-                          value={checkoutForm.phone}
-                          onChange={(e) => setCheckoutForm({ ...checkoutForm, phone: e.target.value })}
-                          style={{
-                            width: '100%',
-                            padding: '12px 15px',
-                            background: '#fff',
-                            border: '1px solid #ddd',
-                            borderRadius: '8px',
-                            fontSize: '14px',
-                            outline: 'none',
-                            color: '#333'
-                          }}
-                        />
-                      </div>
+                      <h5 style={{ color: '#0f2c20', fontWeight: '700', fontSize: '16px', margin: '0 0 8px 0' }}>
+                        Direct Online Payment — Coming Soon!
+                      </h5>
+                      <p style={{ color: '#2c4c3e', fontSize: '13px', lineHeight: '1.6', margin: '0 0 18px 0' }}>
+                        Online payment gateway and automated digital sponsorship certificates are coming soon. For direct reserve sponsorship or institutional deployment, please contact our team.
+                      </p>
                       <button
-                        type="submit"
-                        disabled={checkoutStatus === 'submitting'}
+                        onClick={() => {
+                          setIsCartOpen(false);
+                          router.push('/contact');
+                        }}
                         style={{
                           width: '100%',
-                          padding: '14px',
-                          background: '#152c20',
+                          padding: '12px 18px',
+                          background: '#10b981',
                           color: '#fff',
                           border: 'none',
                           borderRadius: '8px',
                           fontWeight: '700',
-                          fontSize: '15px',
+                          fontSize: '14px',
                           cursor: 'pointer',
-                          transition: '0.3s ease'
+                          transition: '0.2s'
                         }}
                       >
-                        {checkoutStatus === 'submitting' ? 'Processing...' : 'Complete Sponsorship'}
+                        Contact Team for Sponsorship
                       </button>
-                    </form>
+                    </div>
                   </div>
                 </>
               )}
@@ -919,7 +895,7 @@ export default function MainLayout({ children }) {
           left: 0,
           width: '100%',
           height: '100%',
-          backgroundColor: 'rgba(0, 0, 0, 0.75)',
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
           backdropFilter: 'blur(8px)',
           display: 'flex',
           justifyContent: 'center',
@@ -933,7 +909,7 @@ export default function MainLayout({ children }) {
             borderRadius: '24px',
             padding: '40px',
             width: '90%',
-            maxWidth: '550px',
+            maxWidth: '580px',
             boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
             position: 'relative',
             textAlign: 'center'
@@ -956,34 +932,250 @@ export default function MainLayout({ children }) {
             >
               &times;
             </button>
-            <div style={{ color: '#16382c', marginBottom: '20px' }}>
-              <i className="fas fa-award" style={{ fontSize: '60px' }}></i>
+            <div style={{ color: '#16382c', marginBottom: '15px' }}>
+              <i className="fas fa-award" style={{ fontSize: '56px', color: '#10b981' }}></i>
             </div>
-            <h2 style={{ fontFamily: 'Cinzel, serif', color: '#16382c', fontWeight: 'bold', fontSize: '24px', margin: '0 0 10px 0' }}>
+            <h2 style={{ fontFamily: 'Cinzel, serif', color: '#16382c', fontWeight: 'bold', fontSize: '24px', margin: '0 0 5px 0' }}>
               Certificate of Protection
             </h2>
-            <p style={{ fontSize: '13px', textTransform: 'uppercase', letterSpacing: '2px', color: '#777', margin: '0 0 25px 0' }}>
-              Eco Muhafiz Initiative
+            <p style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', color: '#777', margin: '0 0 20px 0' }}>
+              Eco Muhafiz Climate Intelligence Initiative
             </p>
-            <p style={{ fontStyle: 'italic', fontSize: '16px', color: '#555', lineHeight: '1.6', margin: '0 0 20px 0' }}>
-              This document is proudly presented to
+            <p style={{ fontStyle: 'italic', fontSize: '15px', color: '#555', margin: '0 0 15px 0' }}>
+              This official document is proudly presented to
             </p>
-            <h3 style={{ fontFamily: 'var(--font-sans)', color: '#0f2c20', fontWeight: '700', fontSize: '22px', borderBottom: '1px solid #16382c', display: 'inline-block', paddingBottom: '5px', margin: '0 0 20px 0' }}>
-              {checkoutForm.name || 'Our Valued Supporter'}
+            <h3 style={{ fontFamily: 'var(--font-sans)', color: '#0f2c20', fontWeight: '700', fontSize: '22px', borderBottom: '2px solid #10b981', display: 'inline-block', paddingBottom: '4px', margin: '0 0 15px 0' }}>
+              {activeCertificate?.contributorName || checkoutForm.name || 'Our Valued Supporter'}
             </h3>
-            <p style={{ fontSize: '15px', color: '#555', lineHeight: '1.6', maxWidth: '420px', margin: '0 auto 30px auto' }}>
-              In recognition of sponsoring and enabling climate technology deployments to safeguard Pakistan&apos;s wildlife, forests, and biodiversity.
+            <p style={{ fontSize: '14px', color: '#555', lineHeight: '1.6', maxWidth: '440px', margin: '0 auto 20px auto' }}>
+              In recognition of sponsoring and enabling climate technology deployments to safeguard Pakistan&apos;s forests, wildlife, and biodiversity.
             </p>
-            <div style={{ display: 'flex', justifyContent: 'space-between', borderTop: '1px solid #eee', paddingTop: '20px' }}>
-              <div>
-                <small style={{ display: 'block', color: '#999' }}>DATE</small>
-                <strong style={{ fontSize: '13px', color: '#333' }}>{new Date().toLocaleDateString()}</strong>
+
+            <div style={{ background: '#f8faf9', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '12px', padding: '12px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+              <div style={{ textAlign: 'left' }}>
+                <small style={{ display: 'block', color: '#888', fontSize: '11px' }}>CERTIFICATE CODE</small>
+                <strong style={{ fontSize: '13px', color: '#0f2c20', letterSpacing: '0.5px' }}>
+                  {activeCertificate?.certificateCode || 'EM-CERT-VERIFIED'}
+                </strong>
               </div>
-              <div>
-                <small style={{ display: 'block', color: '#999' }}>STATUS</small>
-                <strong style={{ fontSize: '13px', color: 'var(--accent-green, #10b981)' }}>VERIFIED MRV</strong>
+              <div style={{ textAlign: 'right' }}>
+                <small style={{ display: 'block', color: '#888', fontSize: '11px' }}>MRV STATUS</small>
+                <strong style={{ fontSize: '13px', color: '#10b981' }}>VERIFIED &amp; AUDITED</strong>
               </div>
             </div>
+
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+              <button
+                onClick={() => window.print()}
+                style={{
+                  padding: '10px 20px',
+                  background: '#10b981',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontWeight: '700',
+                  fontSize: '13px',
+                  cursor: 'pointer'
+                }}
+              >
+                <i className="fas fa-print" style={{ marginRight: '6px' }}></i> Print / Save Certificate
+              </button>
+              <button
+                onClick={() => {
+                  setIsCheckoutSuccessOpen(false);
+                  clearCart();
+                }}
+                style={{
+                  padding: '10px 20px',
+                  background: '#0f2c20',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontWeight: '700',
+                  fontSize: '13px',
+                  cursor: 'pointer'
+                }}
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 9. Supporter Certificate Lookup Modal */}
+      {isLookupModalOpen && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          backgroundColor: 'rgba(0,0,0,0.75)',
+          backdropFilter: 'blur(6px)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          zIndex: 10003,
+          animation: 'fadeIn 0.2s ease-out'
+        }}>
+          <div style={{
+            background: '#ffffff',
+            borderRadius: '20px',
+            padding: '35px',
+            width: '90%',
+            maxWidth: '520px',
+            maxHeight: '90vh',
+            overflowY: 'auto',
+            position: 'relative',
+            boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
+          }}>
+            <button
+              onClick={() => {
+                setIsLookupModalOpen(false);
+                setLookupResults(null);
+              }}
+              style={{
+                position: 'absolute',
+                top: '15px',
+                right: '15px',
+                background: 'none',
+                border: 'none',
+                color: '#888',
+                fontSize: '24px',
+                cursor: 'pointer'
+              }}
+            >
+              &times;
+            </button>
+
+            <div style={{ textAlign: 'center', marginBottom: '25px' }}>
+              <div style={{ width: '50px', height: '50px', borderRadius: '50%', background: 'rgba(16,185,129,0.12)', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 12px auto', fontSize: '22px' }}>
+                <i className="fas fa-award"></i>
+              </div>
+              <h3 style={{ margin: 0, color: '#0f2c20', fontSize: '22px', fontWeight: '700' }}>
+                Retrieve Your Certificates
+              </h3>
+              <p style={{ margin: '5px 0 0 0', fontSize: '13px', color: '#666' }}>
+                Enter your supporter email address to view &amp; reprint your Certificates of Protection.
+              </p>
+            </div>
+
+            <form onSubmit={async (e) => {
+              e.preventDefault();
+              if (!lookupEmail) return;
+              setLookupLoading(true);
+              try {
+                const res = await fetch(`/api/sponsorships?email=${encodeURIComponent(lookupEmail)}`);
+                const data = await res.json();
+                setLookupResults(data.sponsorships || []);
+              } catch (err) {
+                console.error('Lookup error:', err);
+                setLookupResults([]);
+              }
+              setLookupLoading(false);
+            }}>
+              <div style={{ display: 'flex', gap: '10px', marginBottom: '20px' }}>
+                <input
+                  type="email"
+                  placeholder="Enter email address..."
+                  required
+                  value={lookupEmail}
+                  onChange={(e) => setLookupEmail(e.target.value)}
+                  style={{
+                    flex: 1,
+                    padding: '12px 15px',
+                    border: '1px solid #ccc',
+                    borderRadius: '8px',
+                    fontSize: '14px',
+                    outline: 'none'
+                  }}
+                />
+                <button
+                  type="submit"
+                  disabled={lookupLoading}
+                  style={{
+                    padding: '12px 20px',
+                    background: '#10b981',
+                    color: '#fff',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontWeight: '700',
+                    fontSize: '14px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  {lookupLoading ? 'Searching...' : 'Find'}
+                </button>
+              </div>
+            </form>
+
+            {/* Results Display */}
+            {lookupResults && (
+              <div style={{ marginTop: '20px' }}>
+                {lookupResults.length === 0 ? (
+                  <div style={{ textAlign: 'center', padding: '20px', background: '#fafafa', borderRadius: '12px', color: '#666', fontSize: '14px' }}>
+                    No certificate records found for <strong>{lookupEmail}</strong>.
+                  </div>
+                ) : (
+                  <div>
+                    <h5 style={{ fontSize: '14px', fontWeight: '700', color: '#333', marginBottom: '12px' }}>
+                      Found {lookupResults.length} Certificate(s):
+                    </h5>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                      {lookupResults.map((item) => (
+                        <div
+                          key={item.id}
+                          style={{
+                            border: '1px solid rgba(16,185,129,0.3)',
+                            borderRadius: '12px',
+                            padding: '15px',
+                            background: '#f0fdf4',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <div>
+                            <strong style={{ display: 'block', fontSize: '14px', color: '#0f2c20' }}>
+                              {item.certificateCode}
+                            </strong>
+                            <small style={{ color: '#666' }}>
+                              Sponsored: ${item.amount} • {new Date(item.createdAt).toLocaleDateString()}
+                            </small>
+                          </div>
+                          <button
+                            onClick={() => {
+                              setActiveCertificate({
+                                contributorName: item.contributorName,
+                                contributorEmail: item.contributorEmail,
+                                amount: item.amount,
+                                certificateCode: item.certificateCode,
+                                date: item.createdAt,
+                              });
+                              setIsLookupModalOpen(false);
+                              setIsCheckoutSuccessOpen(true);
+                            }}
+                            style={{
+                              padding: '8px 14px',
+                              background: '#0f2c20',
+                              color: '#fff',
+                              border: 'none',
+                              borderRadius: '6px',
+                              fontSize: '12px',
+                              fontWeight: '700',
+                              cursor: 'pointer'
+                            }}
+                          >
+                            View
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       )}

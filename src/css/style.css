@@ -1602,28 +1602,14 @@ button[type="submit"] i {
   transition: 0.25s ease-in-out;
 }
 .custom-button:before {
-  content: "";
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left: 0;
-  top: 0;
-  border: 2px solid transparent;
-  -webkit-transition: 0.25s ease-in-out;
-  -moz-transition: 0.25s ease-in-out;
-  -ms-transition: 0.25s ease-in-out;
-  -o-transition: 0.25s ease-in-out;
-  transition: 0.25s ease-in-out;
+  display: none !important;
 }
 .custom-button:hover {
   text-decoration: none;
-  line-height: 80px;
-  text-indent: 6px;
+  transform: translateY(-2px);
 }
 .custom-button:hover:before {
-  top: 6px;
-  left: 6px;
-  border-color: #080808;
+  display: none !important;
 }
 
 /* CIRCLE BUTTON */
@@ -2727,11 +2713,11 @@ button[type="submit"] i {
   margin-top: 60px;
 }
 .cta-box .custom-button:hover {
-  background: #080808;
-  color: #fff;
+  background: var(--accent-green) !important;
+  color: #fff !important;
 }
 .cta-box .custom-button:hover:before {
-  border-color: #fff;
+  display: none !important;
 }
 
 /* NOTE BOX */
@@ -4562,24 +4548,29 @@ strong {
   /* Removed white color filter to show green logo */
 }
 .navbar .site-menu ul li a {
-  color: rgba(255, 255, 255, 0.75) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
   font-family: var(--font-sans) !important;
   font-size: 14px !important;
   font-weight: 500 !important;
   text-transform: none !important;
-  padding: 10px 15px !important;
+  padding: 8px 18px !important;
   letter-spacing: 0.2px;
+  border-radius: 100px;
+  transition: all 0.3s ease !important;
+  position: relative;
 }
 .navbar .site-menu ul li a:hover {
   color: #ffffff !important;
   text-decoration: none !important;
 }
 .navbar .site-menu ul li a:after {
-  display: none !important; /* Remove line under menu */
+  display: none !important;
 }
 .navbar .site-menu ul li a.active {
-  color: #ffffff !important;
-  font-weight: 600 !important;
+  color: #10b981 !important;
+  background: rgba(16, 185, 129, 0.15) !important;
+  font-weight: 700 !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
 }
 .navbar .navbar-button a {
   background-color: var(--accent-green) !important;
@@ -4713,20 +4704,24 @@ strong {
   background-color: var(--cream-contrast) !important;
   border-top: 1px solid rgba(15, 44, 32, 0.08);
   border-bottom: 1px solid rgba(15, 44, 32, 0.08);
-  padding: 50px 0 !important;
+  padding: 40px 0 !important;
   position: relative;
   z-index: 4;
 }
 .metric-item {
   border-right: 1px solid rgba(15, 44, 32, 0.12);
-  padding: 0 40px !important;
+  padding: 10px 20px !important;
   text-align: left;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 @media (max-width: 767px) {
   .metric-item {
     border-right: none !important;
     border-bottom: 1px solid rgba(15, 44, 32, 0.12);
-    padding: 20px 0 !important;
+    padding: 20px 10px !important;
     text-align: center;
   }
 }
@@ -4735,21 +4730,25 @@ strong {
   border-bottom: none !important;
 }
 .metric-number {
-  font-family: var(--font-serif) !important;
-  font-size: 52px !important;
-  color: var(--accent-green) !important;
-  font-weight: 400 !important;
-  line-height: 1 !important;
+  font-family: var(--font-sans) !important;
+  font-size: 34px !important;
+  color: #10b981 !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
   margin-bottom: 8px !important;
+  word-break: break-word !important;
+  letter-spacing: -0.5px;
 }
 .metric-label {
   font-family: var(--font-sans) !important;
-  font-size: 14px !important;
-  color: var(--text-dark) !important;
+  font-size: 13px !important;
+  color: #0f2c20 !important;
   font-weight: 500 !important;
   margin: 0;
-  line-height: 1.4;
-  opacity: 0.85;
+  line-height: 1.5;
+  opacity: 0.88;
+  white-space: normal !important;
+  word-wrap: break-word !important;
 }
 
 /* Industries & Cards */
@@ -5154,6 +5153,16 @@ button[type="submit"]:hover {
   color: #ffffff !important;
   transform: translateY(-2px);
 }
+.ghost-button.dark {
+  background: transparent !important;
+  color: #0f2c20 !important;
+  border: 1.5px solid #0f2c20 !important;
+}
+.ghost-button.dark:hover {
+  background: #0f2c20 !important;
+  color: #ffffff !important;
+  border-color: #0f2c20 !important;
+}
 
 /* Secondary dark sections (like company intro or special dashboard presentations) */
 .content-section.dark-section {
@@ -5517,8 +5526,8 @@ button[type="submit"]:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80px;
-  padding: 0 10px;
+  height: 120px;
+  padding: 10px 25px;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -5526,18 +5535,19 @@ button[type="submit"]:hover {
 }
 
 .partner-logo-item img {
-  max-height: 70px;
-  max-width: 200px;
+  max-height: 95px;
+  max-width: 250px;
   width: auto;
   object-fit: contain;
+  mix-blend-mode: multiply;
   filter: none !important;
-  opacity: 0.95 !important;
+  opacity: 0.98 !important;
   transition: all 0.3s ease;
 }
 
 .partner-logo-item:hover img {
   opacity: 1 !important;
-  transform: scale(1.08);
+  transform: scale(1.12);
 }
 
 @keyframes scrollLogos {
@@ -5629,5 +5639,66 @@ button[type="submit"]:hover {
   100% {
     transform: translate(-50%, -50%) scale(1.25);
     opacity: 0;
+  }
+}
+
+.fade-in-image {
+  animation: fadeInSolutionImg 0.4s ease-in-out forwards;
+}
+
+@keyframes fadeInSolutionImg {
+  from {
+    opacity: 0.3;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Mobile Responsiveness Polish */
+@media (max-width: 767px) {
+  .page-header .inner h1 {
+    font-size: 34px !important;
+    line-height: 1.2 !important;
+  }
+  .page-header .inner p {
+    font-size: 15px !important;
+    padding-right: 0 !important;
+  }
+  .section-title h2 {
+    font-size: 28px !important;
+    line-height: 1.25 !important;
+  }
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  .hero-actions a,
+  .hero-actions button {
+    width: 100% !important;
+    text-align: center !important;
+  }
+  .partner-logo-item {
+    height: 90px !important;
+    padding: 5px 15px !important;
+  }
+  .partner-logo-item img {
+    max-height: 70px !important;
+    max-width: 180px !important;
+  }
+  .side-widget {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .nav-btn-demo,
+  .nav-btn-save {
+    padding: 0 14px !important;
+    height: 36px !important;
+    line-height: 36px !important;
+    font-size: 12px !important;
   }
 }
