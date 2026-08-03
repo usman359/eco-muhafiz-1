@@ -285,6 +285,21 @@ export default function MainLayout({ children }) {
           <Link href="/" onClick={(e) => navigateWithTransition(e, "/")}>
             ECO·MUHAFIZ
           </Link>
+          <button
+            onClick={() => setMenuActive(false)}
+            aria-label="Close mobile menu"
+            style={{
+              background: "none",
+              border: "none",
+              color: "#ffffff",
+              fontSize: "26px",
+              cursor: "pointer",
+              padding: "4px 8px",
+              lineHeight: 1,
+            }}
+          >
+            &times;
+          </button>
         </div>
         <div className="inner">
           <div className="widget">
@@ -346,72 +361,53 @@ export default function MainLayout({ children }) {
                 ))}
               </ul>
             </div>
-            <div
-              className={`hamburger-menu ${menuActive ? "active" : ""}`}
-              onClick={toggleMenu}
-            >
-              <svg
-                className="hamburger"
-                width="30"
-                height="30"
-                viewBox="0 0 30 30"
+            <div className="navbar-right-group" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div
+                className={`hamburger-menu ${menuActive ? "active" : ""}`}
+                onClick={toggleMenu}
               >
-                <path className="line line-top" d="M0,9h30" />
-                <path className="line line-center" d="M0,15h30" />
-                <path className="line line-bottom" d="M0,21h30" />
-              </svg>
-            </div>
-            <div className="navbar-button-group" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              {/* <button
-                onClick={() => setIsLookupModalOpen(true)}
-                className="nav-btn-cert"
-                style={{
-                  background: 'rgba(255,255,255,0.12)',
-                  color: '#ffffff',
-                  border: '1px solid rgba(255,255,255,0.25)',
-                  borderRadius: '100px',
-                  padding: '0 16px',
-                  height: '40px',
-                  fontSize: '13px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: '0.2s ease',
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '6px'
-                }}
-              >
-                <i className="fas fa-award" style={{ color: '#10b981' }}></i> My Certificates
-              </button> */}
-              <button
-                onClick={openLiveDemo}
-                className="nav-btn-demo"
-              >
-                Live Demo
-              </button>
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="nav-btn-save"
-              >
-                Save Forest
-                {cart.reduce((sum, item) => sum + item.quantity, 0) > 0 && (
-                  <span style={{
-                    position: 'absolute',
-                    top: '-6px',
-                    right: '-6px',
-                    background: '#e74c3c',
-                    color: '#fff',
-                    borderRadius: '50%',
-                    padding: '2px 6px',
-                    fontSize: '10px',
-                    fontWeight: 'bold',
-                    border: '2px solid #fff',
-                    lineHeight: '1.2'
-                  }}>
-                    {cart.reduce((sum, item) => sum + item.quantity, 0)}
-                  </span>
-                )}
-              </button>
+                <svg
+                  className="hamburger"
+                  width="30"
+                  height="30"
+                  viewBox="0 0 30 30"
+                >
+                  <path className="line line-top" d="M0,9h30" />
+                  <path className="line line-center" d="M0,15h30" />
+                  <path className="line line-bottom" d="M0,21h30" />
+                </svg>
+              </div>
+              <div className="navbar-button-group" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <button
+                  onClick={openLiveDemo}
+                  className="nav-btn-demo"
+                >
+                  Live Demo
+                </button>
+                <button
+                  onClick={() => setIsCartOpen(true)}
+                  className="nav-btn-save"
+                >
+                  Save Forest
+                  {cart.reduce((sum, item) => sum + item.quantity, 0) > 0 && (
+                    <span style={{
+                      position: 'absolute',
+                      top: '-6px',
+                      right: '-6px',
+                      background: '#e74c3c',
+                      color: '#fff',
+                      borderRadius: '50%',
+                      padding: '2px 6px',
+                      fontSize: '10px',
+                      fontWeight: 'bold',
+                      border: '2px solid #fff',
+                      lineHeight: '1.2'
+                    }}>
+                      {cart.reduce((sum, item) => sum + item.quantity, 0)}
+                    </span>
+                  )}
+                </button>
+              </div>
             </div>
           </nav>
 
@@ -555,13 +551,15 @@ export default function MainLayout({ children }) {
           zIndex: 9999,
           animation: 'fadeIn 0.3s ease-out'
         }}>
-          <div style={{
+          <div className="modal-responsive-card" style={{
             background: 'linear-gradient(135deg, #16382c 0%, #0c2018 100%)',
             border: '1px solid rgba(255,255,255,0.1)',
             borderRadius: '24px',
-            padding: '40px',
-            width: '90%',
+            padding: '36px 28px',
+            width: '92%',
             maxWidth: '500px',
+            maxHeight: '90vh',
+            overflowY: 'auto',
             boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
             position: 'relative'
           }}>
@@ -903,13 +901,15 @@ export default function MainLayout({ children }) {
           zIndex: 10002,
           animation: 'fadeIn 0.3s ease-out'
         }}>
-          <div style={{
+          <div className="modal-responsive-card" style={{
             background: 'linear-gradient(135deg, #ffffff 0%, #f7f9f8 100%)',
-            border: '8px double #16382c',
+            border: '6px double #16382c',
             borderRadius: '24px',
-            padding: '40px',
-            width: '90%',
+            padding: '32px 24px',
+            width: '92%',
             maxWidth: '580px',
+            maxHeight: '90vh',
+            overflowY: 'auto',
             boxShadow: '0 20px 50px rgba(0,0,0,0.3)',
             position: 'relative',
             textAlign: 'center'
@@ -921,8 +921,8 @@ export default function MainLayout({ children }) {
               }}
               style={{
                 position: 'absolute',
-                top: '20px',
-                right: '20px',
+                top: '16px',
+                right: '16px',
                 background: 'none',
                 border: 'none',
                 color: '#666',
@@ -935,7 +935,7 @@ export default function MainLayout({ children }) {
             <div style={{ color: '#16382c', marginBottom: '15px' }}>
               <i className="fas fa-award" style={{ fontSize: '56px', color: '#10b981' }}></i>
             </div>
-            <h2 style={{ fontFamily: 'Cinzel, serif', color: '#16382c', fontWeight: 'bold', fontSize: '24px', margin: '0 0 5px 0' }}>
+            <h2 className="modal-responsive-title" style={{ fontFamily: 'Cinzel, serif', color: '#16382c', fontWeight: 'bold', fontSize: '24px', margin: '0 0 5px 0' }}>
               Certificate of Protection
             </h2>
             <p style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', color: '#777', margin: '0 0 20px 0' }}>
@@ -951,7 +951,7 @@ export default function MainLayout({ children }) {
               In recognition of sponsoring and enabling climate technology deployments to safeguard Pakistan&apos;s forests, wildlife, and biodiversity.
             </p>
 
-            <div style={{ background: '#f8faf9', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '12px', padding: '12px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+            <div style={{ background: '#f8faf9', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '12px', padding: '12px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '20px' }}>
               <div style={{ textAlign: 'left' }}>
                 <small style={{ display: 'block', color: '#888', fontSize: '11px' }}>CERTIFICATE CODE</small>
                 <strong style={{ fontSize: '13px', color: '#0f2c20', letterSpacing: '0.5px' }}>
@@ -964,7 +964,7 @@ export default function MainLayout({ children }) {
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap' }}>
               <button
                 onClick={() => window.print()}
                 style={{
@@ -975,7 +975,9 @@ export default function MainLayout({ children }) {
                   borderRadius: '8px',
                   fontWeight: '700',
                   fontSize: '13px',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  flex: '1 1 auto',
+                  minWidth: '160px'
                 }}
               >
                 <i className="fas fa-print" style={{ marginRight: '6px' }}></i> Print / Save Certificate
@@ -993,7 +995,9 @@ export default function MainLayout({ children }) {
                   borderRadius: '8px',
                   fontWeight: '700',
                   fontSize: '13px',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  flex: '1 1 auto',
+                  minWidth: '100px'
                 }}
               >
                 Done

@@ -81,6 +81,13 @@ export default function SatelliteSlider() {
       className="slider-compare-container" 
       id="sliderCompare" 
       ref={containerRef}
+      onClick={(e) => handleMove(e.clientX)}
+      onTouchStart={(e) => {
+        isDragging.current = true;
+        if (e.touches.length > 0) {
+          handleMove(e.touches[0].clientX);
+        }
+      }}
     >
       <img 
         className="slider-compare-img" 

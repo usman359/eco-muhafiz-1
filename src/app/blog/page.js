@@ -47,15 +47,13 @@ export default function Blog() {
           <div className="row justify-content-center" style={{ marginBottom: '40px' }}>
             <div className="col-12 text-center">
               <div
+                className="filter-tabs-scroll"
                 style={{
-                  display: 'inline-flex',
-                  flexWrap: 'wrap',
-                  gap: '10px',
-                  justifyContent: 'center',
                   background: '#fff',
-                  padding: '10px 20px',
+                  padding: '10px 16px',
                   borderRadius: '40px',
                   boxShadow: '0 4px 15px rgba(0,0,0,0.02)',
+                  maxWidth: '100%',
                 }}
               >
                 {categories.map((cat) => (

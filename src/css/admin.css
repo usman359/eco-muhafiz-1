@@ -473,7 +473,7 @@
 .admin-shell input[type="search"],
 .admin-shell input[type="number"],
 .admin-shell input[type="date"],
-.admin-shell select,
+.admin-shell select:not([aria-hidden]),
 .admin-login-page input[type="text"],
 .admin-login-page input[type="password"],
 .admin-login-page input[type="email"] {
@@ -507,7 +507,7 @@
 
 .admin-field input,
 .admin-field textarea,
-.admin-field select,
+.admin-field select:not([aria-hidden]),
 .admin-input {
   width: 100% !important;
   max-width: 100% !important;
@@ -598,6 +598,39 @@
 
   .admin-sidebar {
     width: 100%;
+    padding: 16px;
+  }
+
+  .admin-brand {
+    margin-bottom: 16px;
+  }
+
+  .admin-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .admin-nav-link {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .admin-logout {
+    margin-top: 10px;
+  }
+
+  .admin-content {
+    padding: 16px;
+  }
+
+  .admin-table-container,
+  .admin-table-wrap,
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .admin-field-row,
