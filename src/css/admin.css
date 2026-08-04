@@ -3,7 +3,7 @@
   min-height: 100vh;
   background: #f4f7f5;
   color: #0f2c20;
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: var(--font-sans, "Plus Jakarta Sans", sans-serif);
 }
 
 .admin-sidebar {
@@ -566,7 +566,7 @@
   justify-content: center;
   background: linear-gradient(145deg, #0f2c20 0%, #1a4a35 50%, #0f2c20 100%);
   padding: 24px;
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: var(--font-sans, "Plus Jakarta Sans", sans-serif);
 }
 
 .admin-login-card {
