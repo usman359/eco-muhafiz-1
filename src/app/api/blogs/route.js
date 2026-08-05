@@ -4,6 +4,8 @@ import { ADMIN_COOKIE, isValidSessionToken } from '@/lib/admin-auth';
 
 const COLLECTION = 'blogs';
 
+export const dynamic = 'force-dynamic';
+
 const REQUIRED = ['title', 'date', 'category', 'img', 'readTime', 'author', 'desc'];
 
 function validateBlog(body) {

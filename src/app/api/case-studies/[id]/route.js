@@ -4,6 +4,8 @@ import { ADMIN_COOKIE, isValidSessionToken } from '@/lib/admin-auth';
 
 const COLLECTION = 'case-studies';
 
+export const dynamic = 'force-dynamic';
+
 function validateCaseStudy(body) {
   const required = ['title', 'date', 'img', 'location', 'desc'];
   for (const key of required) {

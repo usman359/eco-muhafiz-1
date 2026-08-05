@@ -62,24 +62,23 @@ async function main() {
 
   console.log('Tables ready: case_studies, blogs, sponsorships');
 
-  const caseStudiesPath = path.join(process.cwd(), 'data', 'case-studies.json');
-  if (existsSync(caseStudiesPath)) {
-    const items = JSON.parse(readFileSync(caseStudiesPath, 'utf8'));
-    for (const item of items) {
-      await sql.query(
-        `INSERT INTO case_studies (id, slug, title, date, img, location, "desc", tags)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-         ON CONFLICT (id) DO UPDATE SET
-           tags = EXCLUDED.tags,
-           title = EXCLUDED.title,
-           "desc" = EXCLUDED.desc,
-           location = EXCLUDED.location,
-           date = EXCLUDED.date,
-           img = EXCLUDED.img`,
-        [item.id, item.slug, item.title, item.date, item.img, item.location, item.desc, JSON.stringify(item.tags || [])]
-      );
+  const [{ count: csCount }] = await sql.query('SELECT COUNT(*)::int AS count FROM case_studies');
+  if (csCount === 0) {
+    const caseStudiesPath = path.join(process.cwd(), 'data', 'case-studies.json');
+    if (existsSync(caseStudiesPath)) {
+      const items = JSON.parse(readFileSync(caseStudiesPath, 'utf8'));
+      for (const item of items) {
+        await sql.query(
+          `INSERT INTO case_studies (id, slug, title, date, img, location, "desc", tags)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+           ON CONFLICT (id) DO NOTHING`,
+          [item.id, item.slug, item.title, item.date, item.img, item.location, item.desc, JSON.stringify(item.tags || [])]
+        );
+      }
+      console.log(`Seeded ${items.length} case studies into database.`);
     }
-    console.log(`Synced ${items.length} case studies into database.`);
+  } else {
+    console.log(`case_studies already has ${csCount} rows, skipping seed.`);
   }
 
   const [{ count: blogCount }] = await sql.query('SELECT COUNT(*)::int AS count FROM blogs');

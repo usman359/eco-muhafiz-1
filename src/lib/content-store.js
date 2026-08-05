@@ -68,41 +68,41 @@ export async function readCollection(collection) {
   try {
     const t = table(collection);
     const rows = await sql.query(`SELECT * FROM ${t} ORDER BY created_at DESC`);
-    if (rows && rows.length > 0) {
+    if (Array.isArray(rows)) {
       return rows.map((row) => fromRow(collection, row));
     }
   } catch (err) {
     console.warn(`DB read error for ${collection}, using fallback:`, err.message);
+    return readJsonFallback(collection);
   }
-  return readJsonFallback(collection);
 }
 
 export async function getById(collection, id) {
   try {
     const t = table(collection);
     const rows = await sql.query(`SELECT * FROM ${t} WHERE id = $1`, [id]);
-    if (rows && rows.length > 0) {
-      return fromRow(collection, rows[0]);
+    if (Array.isArray(rows)) {
+      return rows.length > 0 ? fromRow(collection, rows[0]) : null;
     }
   } catch (err) {
     console.warn(`DB getById error for ${collection}, using fallback:`, err.message);
+    const fallbackItems = readJsonFallback(collection);
+    return fallbackItems.find((item) => item.id === id) || null;
   }
-  const fallbackItems = readJsonFallback(collection);
-  return fallbackItems.find((item) => item.id === id) || null;
 }
 
 export async function getBySlug(collection, slug) {
   try {
     const t = table(collection);
     const rows = await sql.query(`SELECT * FROM ${t} WHERE slug = $1`, [slug]);
-    if (rows && rows.length > 0) {
-      return fromRow(collection, rows[0]);
+    if (Array.isArray(rows)) {
+      return rows.length > 0 ? fromRow(collection, rows[0]) : null;
     }
   } catch (err) {
     console.warn(`DB getBySlug error for ${collection}, using fallback:`, err.message);
+    const fallbackItems = readJsonFallback(collection);
+    return fallbackItems.find((item) => item.slug === slug) || null;
   }
-  const fallbackItems = readJsonFallback(collection);
-  return fallbackItems.find((item) => item.slug === slug) || null;
 }
 
 async function slugExists(t, slug, excludeId) {
@@ -149,11 +149,12 @@ export async function createItem(collection, data) {
   return getById(collection, id);
 }
 
-export async function updateItem(collection, id, data) {
+export async function updateItem(collection, idOrSlug, data) {
   const t = table(collection);
-  const existing = await getById(collection, id);
+  const existing = (await getById(collection, idOrSlug)) || (await getBySlug(collection, idOrSlug));
   if (!existing) return null;
 
+  const id = existing.id;
   const nextSlugBase = data.slug ? slugify(data.slug) : existing.slug;
   const taken = await slugExists(t, nextSlugBase, id);
   const slug = taken ? `${nextSlugBase}-${id.slice(0, 8)}` : nextSlugBase;
@@ -196,8 +197,12 @@ export async function updateItem(collection, id, data) {
   return getById(collection, id);
 }
 
-export async function deleteItem(collection, id) {
+export async function deleteItem(collection, idOrSlug) {
   const t = table(collection);
-  const rows = await sql.query(`DELETE FROM ${t} WHERE id = $1 RETURNING id`, [id]);
+  const existing = (await getById(collection, idOrSlug)) || (await getBySlug(collection, idOrSlug));
+  if (!existing) return false;
+
+  const rows = await sql.query(`DELETE FROM ${t} WHERE id = $1 RETURNING id`, [existing.id]);
   return rows.length > 0;
 }
+
