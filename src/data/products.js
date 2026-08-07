@@ -7,7 +7,12 @@ export const PRODUCTS_DATA = [
     tagline: 'Protect forests before irreversible damage occurs.',
     tag: 'Active Deployment',
     img: '/images/eco_guardian_device.jpeg',
-    secondaryImgs: ['/images/acoustic_nets.png', '/images/ranger_response.png', '/images/muhafiz_biot_device.png'],
+    secondaryImgs: [
+      '/images/eco_guardian_tree_deployment.jpeg',
+      '/images/eco_guardian_app_dashboard.png',
+      '/images/eco_guardian_app_map.png'
+    ],
+    secondaryTitle: 'On-Ground Technology & App Telemetry',
     desc: 'Eco Guardian is a solar-powered, AI-enabled monitoring system that provides continuous protection for forests. Using edge AI, acoustic sensing, IoT, satellite imagery, and GIS, it detects illegal activities, monitors forest health, and tracks biodiversity in real time. Instead of relying solely on patrols or periodic inspections, Eco Guardian enables 24/7 automated monitoring, allowing authorities and conservation organizations to respond faster and make informed decisions.',
     features: [
       'Real-time detection of illegal logging through chainsaw and axe sounds',
@@ -34,8 +39,13 @@ export const PRODUCTS_DATA = [
     subtitle: 'Carbon Monitoring, Emissions Tracking & Nature-Based Offset Management',
     tagline: 'Measure your emissions. Track your climate action.',
     tag: 'Carbon & GIS Platform',
-    img: '/images/satellite_base_obs.png',
-    secondaryImgs: ['/images/satellite_ai_obs.png', '/images/satellite_verification.png'],
+    img: '/images/eco_atlas_forest_monitoring.png',
+    secondaryImgs: [
+      '/images/eco_atlas_carbon_dashboard.png',
+      '/images/eco_atlas_cockpit.png',
+      '/images/maps.png'
+    ],
+    secondaryTitle: 'Platform & Satellite Dashboard Telemetry',
     desc: 'Eco Atlas is an intelligent carbon monitoring platform that helps organizations understand their emissions while managing nature-based carbon offset projects from a single dashboard. The platform calculates greenhouse gas emissions, provides practical reduction recommendations, and monitors afforestation projects using GIS and satellite imagery. It estimates carbon sequestration using established literature-based carbon factors, enabling organizations to visualize how their restoration projects contribute toward offsetting emissions.',
     features: [
       'Organizational carbon footprint calculation',

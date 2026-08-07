@@ -91,7 +91,7 @@ export default function SatelliteSlider() {
     >
       <img 
         className="slider-compare-img" 
-        src="/images/satellite_base_obs.png" 
+        src="/images/view-land-plot-real-estate-business-development-min.jpg" 
         alt="Satellite Regular Map" 
       />
       <div 
@@ -100,11 +100,12 @@ export default function SatelliteSlider() {
         style={{ width: `${position}%` }}
       >
         <img 
-          src="/images/satellite_ai_obs.png" 
+          src="/images/eco_atlas_forest_monitoring.png" 
           alt="Satellite AI Analyzed Map" 
           style={{
             width: dimensions.width ? `${dimensions.width}px` : '100%',
             height: dimensions.height ? `${dimensions.height}px` : '100%',
+            objectFit: 'cover',
           }}
         />
       </div>

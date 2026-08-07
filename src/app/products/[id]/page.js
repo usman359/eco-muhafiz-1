@@ -114,10 +114,12 @@ export default function ProductDetailPage({ params }) {
 
                     {product.secondaryImgs && (
                       <div style={{ marginTop: '30px' }}>
-                        <h5 style={{ fontSize: '16px', color: '#0f2c20', fontWeight: '700', marginBottom: '12px' }}>On-Ground Technology Telemetry</h5>
+                        <h5 style={{ fontSize: '15px', color: '#0f2c20', fontWeight: '700', marginBottom: '12px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                          {product.secondaryTitle || 'On-Ground Technology Telemetry'}
+                        </h5>
                         <div style={{ display: 'flex', gap: '12px' }}>
                           {product.secondaryImgs.map((sImg, sIdx) => (
-                            <div key={sIdx} style={{ flex: 1, height: '100px', borderRadius: '12px', overflow: 'hidden', border: '1px solid #ddd' }}>
+                            <div key={sIdx} style={{ flex: 1, height: '110px', borderRadius: '12px', overflow: 'hidden', border: '1px solid rgba(15,44,32,0.12)', boxShadow: '0 4px 12px rgba(0,0,0,0.06)' }}>
                               <img src={sImg} alt={`${product.title} preview ${sIdx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             </div>
                           ))}

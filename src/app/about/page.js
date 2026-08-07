@@ -8,19 +8,19 @@ export default function About() {
   const pillars = [
     {
       title: 'Acoustic Intelligence',
-      img: '/images/acoustic_nets.png',
+      img: '/images/eco_guardian_device.jpeg',
       icon: 'fa-broadcast-tower',
       desc: 'Deploying edge-AI bioacoustic devices that continuously monitor nature soundscapes, detecting chainsaws, gunshots, and wildfires in milliseconds.',
     },
     {
       title: 'Satellite Verification',
-      img: '/images/satellite_verification.png',
+      img: '/images/eco_atlas_forest_monitoring.png',
       icon: 'fa-satellite',
       desc: 'Merging on-ground acoustic alerts with satellite telemetry for audit-grade carbon and canopy loss reporting across national parks.',
     },
     {
       title: 'Ranger Response Network',
-      img: '/images/ranger_response.png',
+      img: '/images/eco_guardian_app_map.png',
       icon: 'fa-shield-alt',
       desc: 'Empowering local wildlife rangers with immediate mobile geolocated alerts and incident verification tools to stop illegal deforestation.',
     },
